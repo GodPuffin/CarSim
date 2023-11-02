@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b07682d-31d1-489f-a1a8-4475ceefbcc3" name="Changes" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +64,7 @@
       <workItem from="1698872113728" duration="2712000" />
       <workItem from="1698933397742" duration="834000" />
       <workItem from="1698934332829" duration="4501000" />
-      <workItem from="1698955008493" duration="1006000" />
+      <workItem from="1698955008493" duration="1086000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
