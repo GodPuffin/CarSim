@@ -21,7 +21,7 @@ public class Car {
     }
 
     public void reset(double x, double y) {
-        directionHeading = new Vector(0, 1);
+        directionHeading = new Vector(1, 0);
         position = new Vector(x, y);
         steeringAngle = 0;
     }

@@ -28,6 +28,16 @@ public class SimController {
     public void initialize() {
         graphicsHandler = new GraphicsHandler(mainCanvas);
         surface = Surface.ASPHALT;
+
+        mainCanvas.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.focusOwnerProperty().addListener((observable, oldFocusOwner, newFocusOwner) -> {
+                    if (newFocusOwner != mainCanvas) {
+                        mainCanvas.requestFocus();
+                    }
+                });
+            }
+        });
     }
 
     public void update(double deltaTime, Set<KeyCode> activeKeys, Car car) {
@@ -52,5 +62,9 @@ public class SimController {
 
     public void resetPressed(ActionEvent actionEvent) {
         car.reset(graphicsHandler.WIDTH/2, graphicsHandler.HEIGHT/2);
+    }
+
+    public void exitPressed(ActionEvent actionEvent) {
+        System.exit(0);
     }
 }

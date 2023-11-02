@@ -70,7 +70,7 @@
                   </ComboBox>
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
                   <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetPressed" text="Reset" />
-                  <Button fx:id="pauseButton" mnemonicParsing="false" text="Pause" />
+                  <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitPressed" text="Exit" />
                </children>
             </HBox>
             <Separator prefWidth="200.0" />
@@ -85,7 +85,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Graph Title">
+                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Acceleration X">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -93,7 +93,7 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Graph Title" GridPane.columnIndex="1">
+                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Acceleration Y" GridPane.columnIndex="1">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -101,7 +101,7 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Graph Title" GridPane.rowIndex="1">
+                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Velocity X" GridPane.rowIndex="1">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -109,7 +109,7 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Graph Title" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Velocity Y" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -117,7 +117,7 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Graph Title" GridPane.rowIndex="2">
+                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Speed" GridPane.rowIndex="2">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -125,7 +125,24 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <Canvas height="200.0" width="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <Label text="Throttle %" />
+                        <ProgressBar prefWidth="190.0" progress="0.0">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </ProgressBar>
+                        <Label text="RPM" />
+                        <ProgressBar prefWidth="190.0" progress="0.0">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </ProgressBar>
+                        <Label text="Torque" />
+                        <ProgressBar prefWidth="190.0" progress="0.0" />
+                     </children>
+                  </VBox>
                </children>
             </GridPane>
          </children>
