@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.chart.*?>
@@ -8,7 +10,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.carsim.SimController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="400.0" spacing="7.0">
          <children>
@@ -49,7 +51,7 @@
                   <Slider majorTickUnit="50.0" showTickLabels="true" showTickMarks="true" GridPane.rowIndex="1" />
                   <Slider majorTickUnit="50.0" showTickLabels="true" showTickMarks="true" GridPane.rowIndex="2" />
                   <Label text=" Car Weight" GridPane.columnIndex="1" />
-                  <Label text=" Wheel Grip" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text=" Center of Weight" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text=" Engine Force" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
@@ -57,10 +59,18 @@
             <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0" spacing="10.0">
                <children>
                   <Label text="Surface:" />
-                  <ComboBox prefWidth="150.0" />
+                  <ComboBox fx:id="surfaceComboBox" onAction="#SurfaceSelected" prefWidth="150.0" value="Asphalt">
+                      <items>
+                          <FXCollections fx:factory="observableArrayList">
+                              <String fx:value="Asphalt" />
+                              <String fx:value="Gravel" />
+                              <String fx:value="Ice" />
+                          </FXCollections>
+                      </items>
+                  </ComboBox>
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
-                  <Button mnemonicParsing="false" text="Reset" />
-                  <Button mnemonicParsing="false" text="Pause" />
+                  <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetPressed" text="Reset" />
+                  <Button fx:id="pauseButton" mnemonicParsing="false" text="Pause" />
                </children>
             </HBox>
             <Separator prefWidth="200.0" />
@@ -120,9 +130,9 @@
             </GridPane>
          </children>
       </VBox>
-      <Canvas height="900.0" width="1200.0" />
+      <Canvas fx:id="mainCanvas" height="900.0" width="1200.0" />
    </children>
    <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      <Insets left="10.0" top="10.0" />
    </padding>
 </HBox>
