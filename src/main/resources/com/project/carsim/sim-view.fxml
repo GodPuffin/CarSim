@@ -49,10 +49,10 @@
                <children>
                   <Slider majorTickUnit="50.0" showTickLabels="true" showTickMarks="true" />
                   <Slider majorTickUnit="50.0" showTickLabels="true" showTickMarks="true" GridPane.rowIndex="1" />
-                  <Slider majorTickUnit="50.0" showTickLabels="true" showTickMarks="true" GridPane.rowIndex="2" />
+                  <Slider fx:id="scaleSlider" majorTickUnit="50.0" max="15.0" min="1.0" showTickLabels="true" showTickMarks="true" value="5.0" GridPane.rowIndex="2" />
                   <Label text=" Car Weight" GridPane.columnIndex="1" />
-                  <Label text=" Center of Weight" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text=" Engine Force" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text=" Engine Force" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text=" Zoom Amount" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <Separator prefWidth="200.0" />
@@ -147,7 +147,8 @@
             </GridPane>
          </children>
       </VBox>
-      <Canvas fx:id="mainCanvas" height="900.0" width="1200.0" />
+      <Pane fx:id="mainCanvas" />
+<!--height="900.0" width="1200.0"-->
    </children>
    <padding>
       <Insets left="10.0" top="10.0" />

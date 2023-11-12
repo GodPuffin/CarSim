@@ -8,16 +8,25 @@ public class Car {
 
     public Vector directionHeading;
     public Vector position;
-    public final double WHEELBASE = 40;
-    public final double TRACK = 20;
+    public final double WHEELBASE = 4;
+    public final double TRACK = 2;
+    public final double WHEELWIDTH = 0.5;
+    public final double WHEELDIAMETER = 0.7;
     public double steeringAngle;
     private Surface surface;
 
     public Car() {
-        this.reset(600, 450);
+        this.reset(60, 45);
     }
     public void update(double deltaTime, Set<KeyCode> activeKeys, Surface surface) {
         this.surface = surface;
+        if (activeKeys.contains(KeyCode.LEFT)) {
+            steeringAngle = -0.5;
+        }
+        if (activeKeys.contains(KeyCode.RIGHT)) {
+            steeringAngle = 0.5;
+        }
+
     }
 
     public void reset(double x, double y) {

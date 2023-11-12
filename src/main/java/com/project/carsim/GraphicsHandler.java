@@ -1,116 +1,140 @@
 package com.project.carsim;
 
+import javafx.geometry.Rectangle2D;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 
 public class GraphicsHandler {
-    private final Canvas canvas;
-    private final GraphicsContext gc;
+    private final Canvas backgroundCanvas;
+    private final Canvas dynamicCanvas;
+    private final GraphicsContext bgGc;
+    private final GraphicsContext dynGc;
     public final double WIDTH;
     public final double HEIGHT;
+
+    private double scaleFactor = 10;
 
     private WritableImage backgroundImage;
     private Surface previousSurface;
 
 
     public void update(Car car, Surface surface) {
-        // Draw the stored background image
-        if (backgroundImage != null) {
-            gc.drawImage(backgroundImage, 0, 0);
-        }
 
-        double width = gc.getCanvas().getWidth();
-        double height = gc.getCanvas().getHeight();
+        updateBackground(surface);
 
-        gc.save();
-
-        if (surface != previousSurface) {
-            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-            switch (surface) {
-                case ASPHALT:
-                    gc.setFill(Color.GRAY);
-                    gc.fillRect(0, 0, width, height);
-
-                    int numberOfSpeckles = 500;
-                    gc.setFill(Color.DARKGRAY);
-                    for (int i = 0; i < numberOfSpeckles; i++) {
-                        double x = Math.random() * width;
-                        double y = Math.random() * height;
-                        gc.fillRect(x, y, 2, 2);
-                    }
-                    break;
-                case GRAVEL:
-                    gc.setFill(Color.DARKGRAY);
-                    gc.fillRect(0, 0, width, height);
-
-                    int numberOfStones = 1000;
-                    gc.setFill(Color.LIGHTGRAY);
-                    for (int i = 0; i < numberOfStones; i++) {
-                        double x = Math.random() * width;
-                        double y = Math.random() * height;
-                        gc.fillOval(x, y, 5, 5);
-                    }
-                    break;
-                case ICE:
-                    gc.setFill(Color.LIGHTBLUE);
-                    gc.fillRect(0, 0, width, height);
-
-                    int numberOfPatches = 100;
-                    gc.setFill(Color.WHITE);
-                    for (int i = 0; i < numberOfPatches; i++) {
-                        double x = Math.random() * width;
-                        double y = Math.random() * height;
-                        gc.fillOval(x, y, 20, 20);
-                    }
-                    break;
-            }
-            backgroundImage = canvas.snapshot(null, null);
-            previousSurface = surface;
-        }
+        dynGc.clearRect(0, 0, WIDTH, HEIGHT);
+        dynGc.save();
+        dynGc.scale(scaleFactor, scaleFactor);
+//        bgGc.scale(scaleFactor, scaleFactor);
 
         // Rotate the car to face the direction it is heading
-        gc.transform(new Affine(new Rotate(Math.toDegrees(Math.atan2(car.directionHeading.y, car.directionHeading.x)), car.position.x, car.position.y)));
+        dynGc.transform(new Affine(new Rotate(Math.toDegrees(Math.atan2(car.directionHeading.y, car.directionHeading.x)), car.position.x, car.position.y)));
 
         // Draw wheels
-        gc.setFill(Color.BLACK);
-        drawWheel(car.position.x - 18, car.position.y - 12, false, car); // Front left
-        drawWheel(car.position.x + 11, car.position.y - 12, true, car); // Front right
-        drawWheel(car.position.x - 18, car.position.y + 7, false, car); // Rear left
-        drawWheel(car.position.x + 11, car.position.y + 7, true, car); // Rear right
+        dynGc.setFill(Color.BLACK);
+        drawWheel(car.position.x - 1.8, car.position.y - 1.2, false, car);
+        drawWheel(car.position.x + 1.1, car.position.y - 1.2, true, car);
+        drawWheel(car.position.x - 1.8, car.position.y + 0.7, false, car);
+        drawWheel(car.position.x + 1.1, car.position.y + 0.7, true, car);
 
         // Draw car
-        gc.setFill(Color.RED);
-        gc.fillRect(car.position.x - (car.WHEELBASE /2), car.position.y - (car.TRACK /2), car.WHEELBASE, car.TRACK);
+        dynGc.setFill(Color.RED);
+        dynGc.fillRect(car.position.x - (car.WHEELBASE /2), car.position.y - (car.TRACK /2), car.WHEELBASE, car.TRACK);
 
         // Windshield
-        gc.setFill(Color.ALICEBLUE);
-        gc.fillRect(car.position.x + 2, car.position.y - 8, 7, 16);
+        dynGc.setFill(Color.ALICEBLUE);
+        dynGc.fillRect(car.position.x + 0.2, car.position.y - 0.8, 0.7, 1.6);
 
         // Spoiler
-        gc.setFill(Color.DARKRED);
-        gc.fillRect(car.position.x - 22, car.position.y - 11, 8, 22);
+        dynGc.setFill(Color.DARKRED);
+        dynGc.fillRect(car.position.x - 2.2, car.position.y - 1.1, 0.8, 2.2);
 
-        gc.restore();
+        dynGc.restore();
     }
 
     private void drawWheel(double x, double y, boolean isFrontWheel, Car car) {
-        gc.save();
+        dynGc.save();
         if (isFrontWheel) {
-            gc.transform(new Affine(new Rotate(Math.toDegrees(car.steeringAngle), x + 3.5, y + 2.5)));
+            dynGc.transform(new Affine(new Rotate(Math.toDegrees(car.steeringAngle), x + car.WHEELDIAMETER/2, y + car.WHEELWIDTH/2)));
         }
-        gc.fillRect(x, y, 7, 5);
-        gc.restore();
+        dynGc.fillRect(x, y, car.WHEELDIAMETER, car.WHEELWIDTH);
+        dynGc.restore();
     }
 
-    public GraphicsHandler(Canvas canvas) {
-        this.canvas = canvas;
-        this.gc = canvas.getGraphicsContext2D();
-        this.WIDTH = canvas.getWidth();
-        this.HEIGHT = canvas.getHeight();
+    private void updateBackground(Surface surface) {
+
+        bgGc.save();
+
+        if (surface != previousSurface) {
+            bgGc.clearRect(0, 0, WIDTH, HEIGHT);
+
+            switch (surface) {
+                case ASPHALT:
+                    bgGc.setFill(Color.GRAY);
+                    bgGc.fillRect(0, 0, WIDTH, WIDTH);
+
+                    int numberOfSpeckles = 500;
+                    bgGc.setFill(Color.DARKGRAY);
+                    for (int i = 0; i < numberOfSpeckles; i++) {
+                        double x = Math.random() * WIDTH;
+                        double y = Math.random() * HEIGHT;
+                        bgGc.fillRect(x, y, 2, 2);
+                    }
+                    break;
+                case GRAVEL:
+                    bgGc.setFill(Color.DARKGRAY);
+                    bgGc.fillRect(0, 0, WIDTH, HEIGHT);
+
+                    int numberOfStones = 1000;
+                    bgGc.setFill(Color.LIGHTGRAY);
+                    for (int i = 0; i < numberOfStones; i++) {
+                        double x = Math.random() * WIDTH;
+                        double y = Math.random() * HEIGHT;
+                        bgGc.fillOval(x, y, 5, 5);
+                    }
+                    break;
+                case ICE:
+                    bgGc.setFill(Color.LIGHTBLUE);
+                    bgGc.fillRect(0, 0, WIDTH, HEIGHT);
+
+                    int numberOfPatches = 100;
+                    bgGc.setFill(Color.WHITE);
+                    for (int i = 0; i < numberOfPatches; i++) {
+                        double x = Math.random() * WIDTH;
+                        double y = Math.random() * HEIGHT;
+                        bgGc.fillOval(x, y, 20, 20);
+                    }
+                    break;
+            }
+            backgroundImage = backgroundCanvas.snapshot(null, null);
+            previousSurface = surface;
+        } else {
+            bgGc.scale(scaleFactor, scaleFactor);
+            bgGc.drawImage(backgroundImage, 0, 0);
+        }
+        bgGc.restore();
+    }
+
+    public GraphicsHandler(Pane canvasContainer, double width, double height) {
+        this.WIDTH = width;
+        this.HEIGHT = height;
+
+        this.backgroundCanvas = new Canvas(width, height);
+        this.dynamicCanvas = new Canvas(width, height);
+
+        this.bgGc = backgroundCanvas.getGraphicsContext2D();
+        this.dynGc = dynamicCanvas.getGraphicsContext2D();
+
+        canvasContainer.getChildren().addAll(backgroundCanvas, dynamicCanvas);
+    }
+
+    public void setScaleFactor(double scaleFactor) {
+        this.scaleFactor = scaleFactor;
     }
 }

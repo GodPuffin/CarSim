@@ -5,20 +5,24 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 
 import java.util.Set;
 
 public class SimController {
 
     @FXML
-    private Canvas mainCanvas;
+    private Pane mainCanvas;
     @FXML
     ComboBox<String> surfaceComboBox;
     @FXML
     Button resetButton;
     @FXML
     Button pauseButton;
+    @FXML
+    Slider scaleSlider;
 
     private GraphicsHandler graphicsHandler;
     private Surface surface;
@@ -26,8 +30,10 @@ public class SimController {
 
     @FXML
     public void initialize() {
-        graphicsHandler = new GraphicsHandler(mainCanvas);
+        graphicsHandler = new GraphicsHandler(mainCanvas, 1200, 900);
         surface = Surface.ASPHALT;
+
+        scaleSlider.valueProperty().addListener((observable, oldValue, newValue) -> graphicsHandler.setScaleFactor(newValue.doubleValue()));
 
         mainCanvas.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
             if (newScene != null) {
