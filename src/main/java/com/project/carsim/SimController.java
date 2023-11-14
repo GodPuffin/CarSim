@@ -52,7 +52,7 @@ public class SimController {
         car.update(deltaTime, activeKeys, surface);
         graphicsHandler.update(car, surface);
 
-        throttleBar.setProgress(car.throttle);
+        throttleBar.setProgress(car.inputs.throttle);
 
     }
 

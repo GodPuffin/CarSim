@@ -1,26 +1,28 @@
 package com.project.carsim;
 
 public class Engine {
-    private double engineRPM;    // Current engine RPM
-    private double torque; // Current engine torque
-    private double throttlePosition; // Throttle position (0 to 1)
+
+    double rpm;    // Current engine RPM
+    double torque; // Current engine torque
+
 
     public Engine() {
-        engineRPM = 1000.0; // Initial RPM
-        torque = torqueCurve(engineRPM);
-        throttlePosition = 0.0; // Throttle fully released
+        rpm = 1000.0; // Initial RPM
+        torque = 0;
     }
 
 
-    // Ensure that throttle position is in the range [0, 1]
-    public void setThrottlePosition(double position) {
-        throttlePosition = Math.max(0.0, Math.min(1.0, position));
+    public void setRpm(double rpm) {
+        this.rpm = Math.max(1000, rpm);
     }
 
-    private double torqueCurve(double currentRPM) {
-        // Torque curve for engine LS1 in SI units
-        final double[] RPM_POINTS =    {1000.0, 2000.0, 3000.0, 4000.0, 4400.0, 5000.0, 5500.0, 6000.0};
-        final double[] TORQUE_POINTS = { 400.0,  430.0,  450.0,  465.0,  475.0,  460.0,  450.0,  390.0};
+    public void setTorque(double torque) {
+        this.torque = torque;
+    }
+
+    double torqueCurve(double currentRPM) {
+        final double[] RPM_POINTS = {1000.0, 2000.0, 3000.0, 4000.0, 4400.0, 5000.0, 5500.0, 6000.0};
+        final double[] TORQUE_POINTS = {400.0, 430.0, 450.0, 465.0, 475.0, 460.0, 450.0, 390.0};
 
 
         // Using interpolation to estimate torque based on RPM
@@ -37,8 +39,12 @@ public class Engine {
         return TORQUE_POINTS[TORQUE_POINTS.length - 1];
     }
 
-    public void update(double dt){
+    public void update(double dt, double throttle) {
+        setRpm(Wheel.angularSpeed);
+        this.torque = throttle * torqueCurve(rpm);
+
 
     }
+
 
 }
