@@ -45,6 +45,10 @@ public class Vector {
         return (v1.x * v2.x) + (v1.y * v2.y);
     }
 
+    public static Vector fromAngle(double Angle) {
+        return new Vector(Math.cos(Angle), Math.sin(Angle));
+    }
+
     public void rotate(double angle) {
         double newX = x * Math.cos(angle) - y * Math.sin(angle);
         double newY = x * Math.sin(angle) + y * Math.cos(angle);
@@ -56,5 +60,8 @@ public class Vector {
         return Math.sqrt((this.x * this.x) + (this.y * this.y));
     }
 
+    public Vector multiply(double scalar) {
+        return new Vector(this.x * scalar, this.y * scalar);
+    }
 }
 

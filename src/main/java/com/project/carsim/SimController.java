@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
@@ -20,9 +21,9 @@ public class SimController {
     @FXML
     Button resetButton;
     @FXML
-    Button pauseButton;
-    @FXML
     Slider scaleSlider;
+    @FXML
+    ProgressBar throttleBar;
 
     private GraphicsHandler graphicsHandler;
     private Surface surface;
@@ -50,6 +51,9 @@ public class SimController {
         this.car = car;
         car.update(deltaTime, activeKeys, surface);
         graphicsHandler.update(car, surface);
+
+        throttleBar.setProgress(car.throttle);
+
     }
 
     public void SurfaceSelected(ActionEvent actionEvent) {

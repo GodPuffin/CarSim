@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b07682d-31d1-489f-a1a8-4475ceefbcc3" name="Changes" comment="Initial Commit" />
+    <list default="true" id="5b07682d-31d1-489f-a1a8-4475ceefbcc3" name="Changes" comment="Initial Commit">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/GraphicsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/GraphicsHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Vector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/project/carsim/sim-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/project/carsim/sim-view.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,6 +32,13 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -49,21 +65,6 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="CarSim" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="CarSim" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -81,6 +82,9 @@
       <workItem from="1699556506526" duration="4341000" />
       <workItem from="1699640892927" duration="532000" />
       <workItem from="1699828813925" duration="146000" />
+      <workItem from="1699828967126" duration="4978000" />
+      <workItem from="1699921302594" duration="6211000" />
+      <workItem from="1699973986298" duration="4721000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
