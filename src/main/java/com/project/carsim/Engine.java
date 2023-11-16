@@ -13,7 +13,7 @@ public class Engine {
 
 
     public void setRpm(double rpm) {
-        this.rpm = Math.max(1000, rpm);
+        this.rpm = Math.max(1000, Math.min(rpm, 6000));
     }
 
     public void setTorque(double torque) {

@@ -24,6 +24,8 @@ public class SimController {
     Slider scaleSlider;
     @FXML
     ProgressBar throttleBar;
+    @FXML
+    ProgressBar rpmBar;
 
     private GraphicsHandler graphicsHandler;
     private Surface surface;
@@ -53,6 +55,7 @@ public class SimController {
         graphicsHandler.update(car, surface);
 
         throttleBar.setProgress(car.inputs.throttle);
+        rpmBar.setProgress(car.engine.rpm/6000);
 
     }
 

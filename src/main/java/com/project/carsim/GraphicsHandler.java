@@ -18,7 +18,7 @@ public class GraphicsHandler {
     private final Canvas dynamicCanvas;
     private final GraphicsContext bgGc;
     private final GraphicsContext dynGc;
-    private final double cameraLag = 0.02;
+    private final double cameraLag = 0.05;
     private double scaleFactor = 10;
     private Surface previousSurface;
     private Vector cameraPosition;

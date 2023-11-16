@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class Car {
 
-    private Engine engine;
+    public Engine engine;
     public Drivetrain drivetrain;
     Inputs inputs;
 
@@ -28,7 +28,6 @@ public class Car {
     public final double heightCG = 1;
     public final double offsetCG = 0;
     private Surface surface;
-
 
 
     // PHYSICS CONSTANTS
@@ -52,7 +51,6 @@ public class Car {
         inputs = new Inputs();
 
 
-
         this.reset(60, 40);
     }
 
@@ -61,23 +59,23 @@ public class Car {
 
         inputs.update(activeKeys);
 
-        double inertia = Wheel.mass;
-        double weightRear = (((WHEELBASE / 2 + offsetCG) / WHEELBASE) * mass * 9.8 - (heightCG / WHEELBASE) * mass * acceleration.magnitude());
-        double slipRatio = velocity.magnitude() != 0 ? (Wheel.angularSpeed * Wheel.radius - velocity.magnitude()) / Math.abs(velocity.magnitude()) : 0;
+        double inertia = Wheel.mass * Wheel.radius * Wheel.radius / 2;
+//        double weightRear = (((WHEELBASE / 2 + offsetCG) / WHEELBASE) * mass * 9.8 + (heightCG / WHEELBASE) * mass * acceleration.magnitude());
+        double weightRear = mass*9.8/2;
+        double slipRatio = velocity.magnitude() != 0 ? Math.min(Wheel.angularSpeed * Wheel.radius - velocity.magnitude(), 1) / Math.abs(velocity.magnitude()) : 0;
 
         engine.setRpm(Wheel.angularSpeed * drivetrain.transmissionRatio[drivetrain.currentGear + 1] * drivetrain.differentialRatio * 30 / Math.PI);
         engine.torque = inputs.throttle * engine.torqueCurve(engine.rpm);
 
         double torqueDrive = engine.torque * drivetrain.transmissionRatio[drivetrain.currentGear + 1] * drivetrain.differentialRatio * drivetrain.transmissionEfficiency;
-        double torqueTraction = Wheel.mu * weightRear * Wheel.radius * slipRatio;
+        double torqueTraction = (Wheel.mu * weightRear * Wheel.radius * slipRatio);
         double torqueBrake = 0;
 
-        Wheel.angularAcceleration = (torqueDrive + torqueTraction + torqueBrake)/inertia;
-        Wheel.angularSpeed += Wheel.angularAcceleration*dt;
+        Wheel.angularAcceleration = (torqueDrive + torqueTraction + torqueBrake) / inertia;
+        Wheel.angularSpeed += Wheel.angularAcceleration * dt;
 
 
-        System.out.println("weightRear: " + weightRear + ", rpm: " + engine.rpm + ", torqueDrive: " + torqueDrive + ", torqueTraction: " + torqueTraction);
-
+        System.out.println("weightRear: " + weightRear + ", torqueDrive: " + torqueDrive + ", torqueTraction: " + torqueTraction);
 
 
 //        forces

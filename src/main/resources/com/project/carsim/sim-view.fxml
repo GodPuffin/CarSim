@@ -3,7 +3,6 @@
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.canvas.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -134,7 +133,7 @@
                            </VBox.margin>
                         </ProgressBar>
                         <Label text="RPM" />
-                        <ProgressBar prefWidth="190.0" progress="0.0">
+                        <ProgressBar fx:id="rpmBar" prefWidth="190.0" progress="0.0">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
