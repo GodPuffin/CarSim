@@ -84,17 +84,17 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Acceleration X">
+                  <LineChart legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Acceleration X" fx:id="xAccelChart">
                     <xAxis>
-                      <CategoryAxis side="BOTTOM" />
+                      <NumberAxis animated="false" autoRanging="false" side="BOTTOM" tickLabelsVisible="false" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis side="LEFT" />
+                      <NumberAxis animated="false" side="LEFT" />
                     </yAxis>
                   </LineChart>
                   <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Acceleration Y" GridPane.columnIndex="1">
                     <xAxis>
-                      <CategoryAxis side="BOTTOM" />
+                      <NumberAxis side="BOTTOM" />
                     </xAxis>
                     <yAxis>
                       <NumberAxis side="LEFT" />
@@ -102,7 +102,7 @@
                   </LineChart>
                   <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Velocity X" GridPane.rowIndex="1">
                     <xAxis>
-                      <CategoryAxis side="BOTTOM" />
+                      <NumberAxis side="BOTTOM" />
                     </xAxis>
                     <yAxis>
                       <NumberAxis side="LEFT" />
@@ -110,7 +110,7 @@
                   </LineChart>
                   <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Velocity Y" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <xAxis>
-                      <CategoryAxis side="BOTTOM" />
+                      <NumberAxis side="BOTTOM" />
                     </xAxis>
                     <yAxis>
                       <NumberAxis side="LEFT" />
@@ -118,7 +118,7 @@
                   </LineChart>
                   <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Speed" GridPane.rowIndex="2">
                     <xAxis>
-                      <CategoryAxis side="BOTTOM" />
+                      <NumberAxis side="BOTTOM" />
                     </xAxis>
                     <yAxis>
                       <NumberAxis side="LEFT" />

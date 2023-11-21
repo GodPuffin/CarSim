@@ -3,6 +3,7 @@ package com.project.carsim;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ProgressBar;
@@ -14,6 +15,8 @@ import java.util.Set;
 
 public class SimController {
 
+    @FXML
+    LineChart xAccelChart;
     @FXML
     private Pane mainCanvas;
     @FXML
@@ -30,6 +33,8 @@ public class SimController {
     private GraphicsHandler graphicsHandler;
     private Surface surface;
     private Car car;
+    // Temporary to test Graphs
+    private Grapher throttleGrapher;
 
     @FXML
     public void initialize() {
@@ -47,9 +52,12 @@ public class SimController {
                 });
             }
         });
+
+        throttleGrapher = new Grapher(xAccelChart, "blue");
     }
 
     public void update(double deltaTime, Set<KeyCode> activeKeys, Car car) {
+
         this.car = car;
         car.update(deltaTime, activeKeys, surface);
         graphicsHandler.update(car, surface);
@@ -57,6 +65,7 @@ public class SimController {
         throttleBar.setProgress(car.inputs.throttle);
         rpmBar.setProgress(car.engine.rpm/6000);
 
+        throttleGrapher.update(car.inputs.throttle, deltaTime);
     }
 
     public void SurfaceSelected(ActionEvent actionEvent) {

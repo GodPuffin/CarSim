@@ -75,7 +75,7 @@ public class Car {
         Wheel.angularSpeed += Wheel.angularAcceleration * dt;
 
 
-        System.out.println("weightRear: " + weightRear + ", torqueDrive: " + torqueDrive + ", torqueTraction: " + torqueTraction);
+//        System.out.println("weightRear: " + weightRear + ", torqueDrive: " + torqueDrive + ", torqueTraction: " + torqueTraction);
 
 
 //        forces
