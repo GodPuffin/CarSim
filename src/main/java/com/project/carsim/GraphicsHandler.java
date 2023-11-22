@@ -57,7 +57,7 @@ public class GraphicsHandler {
         bgGc.translate(-cameraPosition.x * scaleFactor, -cameraPosition.y * scaleFactor);
 
         // Rotate the car to face the direction it is heading
-        dynGc.transform(new Affine(new Rotate(Math.toDegrees(Math.atan2(car.directionFacing.y, car.directionFacing.x)), car.position.x, car.position.y)));
+        dynGc.transform(new Affine(new Rotate(Math.toDegrees(car.angle), car.position.x, car.position.y)));
 
         // Draw wheels
         dynGc.setFill(Color.BLACK);
@@ -68,7 +68,7 @@ public class GraphicsHandler {
 
         // Draw car
         dynGc.setFill(Color.RED);
-        dynGc.fillRect(car.position.x - (car.WHEELBASE / 2), car.position.y - (car.TRACK / 2), car.WHEELBASE, car.TRACK);
+        dynGc.fillRect(car.position.x - (car.length / 2), car.position.y - (car.width / 2), car.length, car.width);
 
         // Windshield
         dynGc.setFill(Color.ALICEBLUE);
@@ -94,9 +94,9 @@ public class GraphicsHandler {
     private void drawWheel(double x, double y, boolean isFrontWheel, Car car) {
         dynGc.save();
         if (isFrontWheel) {
-            dynGc.transform(new Affine(new Rotate(Math.toDegrees(car.inputs.steeringAngle), x + car.WHEELDIAMETER / 2, y + car.WHEELWIDTH / 2)));
+            dynGc.transform(new Affine(new Rotate(Math.toDegrees(car.inputs.steeringAngle), x + car.wheellength / 2, y + car.wheelwidth / 2)));
         }
-        dynGc.fillRect(x, y, car.WHEELDIAMETER, car.WHEELWIDTH);
+        dynGc.fillRect(x, y, car.wheellength, car.wheelwidth);
         dynGc.restore();
     }
 

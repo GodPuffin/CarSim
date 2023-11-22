@@ -1,109 +1,199 @@
 package com.project.carsim;
 
-import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 
 import java.util.Set;
 
 public class Car {
 
-    public Engine engine;
-    public Drivetrain drivetrain;
+    double wheelbase;        // wheelbase in m
+    double b;                // in m, distance from CG to front axle
+    double c;                // in m, distance from CG to rear axle
+    double h;                // in m, height of CM from ground
+    double mass;            // in kg
+    double inertia;        // in kg.m
+    double length, width;
+    double wheellength, wheelwidth;
+
+    Vector position_wc;        // position of car centre in world coordinates
+    Vector velocity_wc;        // velocity vector of car in world coordinates
+
+    double angle;                // angle of car body orientation (in rads)
+    double angularvelocity;
+
     Inputs inputs;
 
-    String currentSurface;
-
-    Vector position;
     Vector velocity;
+    Vector acceleration_wc;
+    double rot_angle;
+    double sideslip;
+    double slipanglefront;
+    double slipanglerear;
+    Vector force;
+    Vector resistance;
     Vector acceleration;
-    public Vector directionFacing;
-
-    double mass;
-
-    public final double WHEELBASE = 4;
-    public final double TRACK = 2;
-    public final double WHEELWIDTH = 0.5;
-    public final double WHEELDIAMETER = 0.7;
-
-    public final double heightCG = 1;
-    public final double offsetCG = 0;
-    private Surface surface;
+    double torque;
+    double angular_acceleration;
+    double sn, cs;
+    double yawspeed;
+    double weight;
+    Vector ftraction;
+    Vector flatf, flatr;
+    Vector position;
 
 
-    // PHYSICS CONSTANTS
-    final double DRAG = 0.5;
-    final double ROLLING_RESISTANCE = 15;
-    final double BRAKING_CONSTANT = 10000;
+    Engine engine;
 
     public Car() {
 
-        mass = 2000;
+        this.b = 1.0;                     // m
+        this.c = 1.0;                     // m
+        this.wheelbase = this.b + this.c; // m
+        this.h = 1.0;                     // m
+        this.mass = 1500;                 // kg
+        this.inertia = 1500;              // kg.m
+        this.width = 2;                 // m
+        this.length = 3.0;                // m, must be > wheelbase
+        this.wheellength = 0.7;
+        this.wheelwidth = 0.3;
 
-        Wheel.mu = 1;
-        Wheel.radius = 0.5;
-        Wheel.width = 0.3;
-        Wheel.mass = 30;
-        Wheel.angularAcceleration = 0;
-        Wheel.angularSpeed = 0;
+        this.position_wc = new Vector();
+        this.velocity_wc = new Vector();
 
-        drivetrain = new Drivetrain();
-        engine = new Engine();
+        this.angle = 0;
+        this.angularvelocity = 0;
+
         inputs = new Inputs();
+        engine = new Engine();
+
+        velocity = new Vector();
+        acceleration_wc = new Vector();
+        force = new Vector();
+        resistance = new Vector();
+        acceleration = new Vector();
+        ftraction = new Vector();
+        flatf = new Vector();
+        flatr = new Vector();
+        position = new Vector();
 
 
-        this.reset(60, 40);
     }
 
     public void update(double dt, Set<KeyCode> activeKeys, Surface surface) {
-        this.surface = surface;
+
+        sn = Math.sin(this.angle);
+        cs = Math.cos(this.angle);
+
+        // SAE convention: x is to the front of the car, y is to the right, z is down
+
+        // transform velocity in world reference frame to velocity in car reference frame
+        velocity.x = sn * this.velocity_wc.y + cs * this.velocity_wc.x;
+        velocity.y = -cs * this.velocity_wc.y + sn * this.velocity_wc.x;
+
+// Lateral force on wheels
+//
+        // Resulting velocity of the wheels as result of the yaw rate of the car body
+        // v = yawrate * r where r is distance of wheel to CG (approx. half wheel base)
+        // yawrate (ang.velocity) must be in rad/s
+        //
+        yawspeed = this.wheelbase * 0.5 * this.angularvelocity;
+
+        if (velocity.x == 0) {        // TODO: fix singularity
+            rot_angle = 0;
+        } else {
+            rot_angle = Math.atan2(yawspeed, velocity.x);
+        }
+
+        // Calculate the side slip angle of the car (a.k.a. beta)
+        if (velocity.x == 0) {       // TODO: fix singularity
+            sideslip = 0;
+        } else {
+            sideslip = Math.atan2(velocity.y, velocity.x);
+        }
+
+        // Calculate slip angles for front and rear wheels (a.k.a. alpha)
+        slipanglefront = sideslip + rot_angle - this.inputs.steeringAngle;
+        slipanglerear = sideslip - rot_angle;
+
+        // weight per axle = half car mass times 1G (=9.8m/s^2)
+        weight = this.mass * 9.8 * 0.5;
+
+// lateral force on front wheels = (Ca * slip angle) capped to friction circle * load
+        flatf.x = 0;
+        flatf.y = Constants.CA_F * slipanglefront;
+        flatf.y = Math.min(Constants.MAX_GRIP, flatf.y);
+        flatf.y = Math.max(-Constants.MAX_GRIP, flatf.y);
+        flatf.y *= weight;
+
+        // lateral force on rear wheels
+        flatr.x = 0;
+        flatr.y = Constants.CA_R * slipanglerear;
+        flatr.y = Math.min(Constants.MAX_GRIP, flatr.y);
+        flatr.y = Math.max(-Constants.MAX_GRIP, flatr.y);
+        flatr.y *= weight;
+
+
+        // longtitudinal force on rear wheels - very simple traction model
+        ftraction.x = 100 * (this.inputs.throttle - this.inputs.brake * Math.signum(velocity.x));
+        ftraction.y = 0;
+
+
+// Forces and torque on body
+
+        // drag and rolling resistance
+        resistance.x = -(Constants.RESISTANCE * velocity.x + Constants.DRAG * velocity.x * Math.abs(velocity.x));
+        resistance.y = -(Constants.RESISTANCE * velocity.y + Constants.DRAG * velocity.y * Math.abs(velocity.y));
+
+        // sum forces
+        force.x = ftraction.x + Math.sin(this.inputs.steeringAngle) * flatf.x + flatr.x + resistance.x;
+        force.y = ftraction.y + Math.cos(this.inputs.steeringAngle) * flatf.y + flatr.y + resistance.y;
+
+        // torque on body from lateral forces
+        torque = this.b * flatf.y - this.c * flatr.y;
+
+// Acceleration
+
+        // Newton F = m.a, therefore a = F/m
+        acceleration.x = force.x / this.mass;
+        acceleration.y = force.y / this.mass;
+
+        angular_acceleration = torque / this.inertia;
+
+// Velocity and position
+
+        // transform acceleration from car reference frame to world reference frame
+        acceleration_wc.x = sn * acceleration.y + cs * acceleration.x;
+        acceleration_wc.y = -cs * acceleration.y + sn * acceleration.x;
+
+        // velocity is integrated acceleration
+        //
+        this.velocity_wc.x += dt * acceleration_wc.x;
+        this.velocity_wc.y += dt * acceleration_wc.y;
+
+        // position is integrated velocity
+        //
+        this.position_wc.x += dt * this.velocity_wc.x;
+        this.position_wc.y += dt * this.velocity_wc.y;
+
+// Angular velocity and heading
+
+        // integrate angular acceleration to get angular velocity
+        //
+        this.angularvelocity += dt * angular_acceleration;
+
+        // integrate angular velocity to get angular orientation
+        //
+        this.angle += dt * this.angularvelocity;
+
+        position.x = position_wc.x;
+        position.y = position_wc.y;
 
         inputs.update(activeKeys);
-
-        double inertia = Wheel.mass * Wheel.radius * Wheel.radius / 2;
-//        double weightRear = (((WHEELBASE / 2 + offsetCG) / WHEELBASE) * mass * 9.8 + (heightCG / WHEELBASE) * mass * acceleration.magnitude());
-        double weightRear = mass*9.8/2;
-        double slipRatio = velocity.magnitude() != 0 ? Math.min(Wheel.angularSpeed * Wheel.radius - velocity.magnitude(), 1) / Math.abs(velocity.magnitude()) : 0;
-
-        engine.setRpm(Wheel.angularSpeed * drivetrain.transmissionRatio[drivetrain.currentGear + 1] * drivetrain.differentialRatio * 30 / Math.PI);
-        engine.torque = inputs.throttle * engine.torqueCurve(engine.rpm);
-
-        double torqueDrive = engine.torque * drivetrain.transmissionRatio[drivetrain.currentGear + 1] * drivetrain.differentialRatio * drivetrain.transmissionEfficiency;
-        double torqueTraction = (Wheel.mu * weightRear * Wheel.radius * slipRatio);
-        double torqueBrake = 0;
-
-        Wheel.angularAcceleration = (torqueDrive + torqueTraction + torqueBrake) / inertia;
-        Wheel.angularSpeed += Wheel.angularAcceleration * dt;
-
-
-//        System.out.println("weightRear: " + weightRear + ", torqueDrive: " + torqueDrive + ", torqueTraction: " + torqueTraction);
-
-
-//        forces
-        Vector forceDrive = Vector.multiply(torqueDrive / Wheel.radius, Vector.unitVector(directionFacing));
-        Vector forceTraction = Vector.multiply(torqueTraction / Wheel.radius, directionFacing);
-        Vector forceDrag = Vector.multiply(-DRAG * velocity.magnitude(), velocity);
-        Vector forceRollingResistance = Vector.multiply(-ROLLING_RESISTANCE, velocity);
-        Vector forceBraking = new Vector();
-
-        double R = WHEELBASE / Math.sin(inputs.steeringAngle);
-        double omega = velocity.magnitude() / R;
-        directionFacing.rotate(omega * dt);
-        directionFacing = Vector.unitVector(directionFacing);
-
-
-        Vector forceLongitudinal = Vector.add(forceDrive, forceTraction, forceDrag, forceRollingResistance, forceBraking);
-
-        acceleration = Vector.division(forceLongitudinal, mass);
-        velocity = Vector.add(velocity, Vector.multiply(dt, acceleration));
-        position = Vector.add(position, Vector.multiply(dt, velocity));
-
+//        System.out.println("posX: " + position.x + "posY: " + position.y);
+        System.out.println("velX: " + velocity.x + "velY: " + velocity.y);
     }
 
     public void reset(double x, double y) {
-        directionFacing = new Vector(1, 0);
-        position = new Vector(x, y);
-        velocity = new Vector();
-        acceleration = new Vector();
-        inputs.steeringAngle = 0;
+
     }
 }
