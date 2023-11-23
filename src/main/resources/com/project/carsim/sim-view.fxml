@@ -84,45 +84,45 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <LineChart legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Acceleration X" fx:id="xAccelChart">
+                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Acceleration X" fx:id="xAccelChart">
                     <xAxis>
                       <NumberAxis animated="false" autoRanging="false" side="BOTTOM" tickLabelsVisible="false" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis animated="false" side="LEFT" />
+                      <NumberAxis animated="false" autoRanging="false" side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Acceleration Y" GridPane.columnIndex="1">
-                    <xAxis>
-                      <NumberAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
+                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Acceleration Y" GridPane.columnIndex="1" fx:id="yAccelChart">
+                      <xAxis>
+                          <NumberAxis animated="false" autoRanging="false" side="BOTTOM" tickLabelsVisible="false" />
+                      </xAxis>
+                      <yAxis>
+                          <NumberAxis animated="false" autoRanging="false" side="LEFT" />
+                      </yAxis>
                   </LineChart>
-                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Velocity X" GridPane.rowIndex="1">
-                    <xAxis>
-                      <NumberAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
+                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Velocity X" GridPane.rowIndex="1" fx:id="xVelocChart">
+                      <xAxis>
+                          <NumberAxis animated="false" autoRanging="false" side="BOTTOM" tickLabelsVisible="false" />
+                      </xAxis>
+                      <yAxis>
+                          <NumberAxis animated="false" autoRanging="false" side="LEFT" />
+                      </yAxis>
                   </LineChart>
-                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Velocity Y" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <xAxis>
-                      <NumberAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
+                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Velocity Y" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="yVelocChart">
+                      <xAxis>
+                          <NumberAxis animated="false" autoRanging="false" side="BOTTOM" tickLabelsVisible="false" />
+                      </xAxis>
+                      <yAxis>
+                          <NumberAxis animated="false" autoRanging="false" side="LEFT" />
+                      </yAxis>
                   </LineChart>
-                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Speed" GridPane.rowIndex="2">
-                    <xAxis>
-                      <NumberAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
+                  <LineChart createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Speed" GridPane.rowIndex="2" fx:id="spdChart">
+                      <xAxis>
+                          <NumberAxis animated="false" autoRanging="false" side="BOTTOM" tickLabelsVisible="false" />
+                      </xAxis>
+                      <yAxis>
+                          <NumberAxis animated="false" autoRanging="false" side="LEFT" />
+                      </yAxis>
                   </LineChart>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
@@ -139,7 +139,12 @@
                            </VBox.margin>
                         </ProgressBar>
                         <Label text="Torque" />
-                        <ProgressBar prefWidth="190.0" progress="0.0" />
+                        <ProgressBar fx:id="torqueBar" prefWidth="190.0" progress="0.0">
+                         <VBox.margin>
+                             <Insets bottom="10.0" />
+                         </VBox.margin>
+                        </ProgressBar>
+                         <Label fx:id="gearLabel" text="Current Gear:"/>
                      </children>
                   </VBox>
                </children>

@@ -61,22 +61,22 @@ public class GraphicsHandler {
 
         // Draw wheels
         dynGc.setFill(Color.BLACK);
-        drawWheel(car.position.x - 1.8, car.position.y - 1.2, false, car);
-        drawWheel(car.position.x + 1.1, car.position.y - 1.2, true, car);
-        drawWheel(car.position.x - 1.8, car.position.y + 0.7, false, car);
-        drawWheel(car.position.x + 1.1, car.position.y + 0.7, true, car);
+        drawWheel(car.position.x - car.length/2, car.position.y - car.width/2, false, car);
+        drawWheel(car.position.x + car.length/2, car.position.y - car.width/2, true, car);
+        drawWheel(car.position.x - car.length/2, car.position.y + car.width/2, false, car);
+        drawWheel(car.position.x + car.length/2, car.position.y + car.width/2, true, car);
 
         // Draw car
         dynGc.setFill(Color.RED);
-        dynGc.fillRect(car.position.x - (car.length / 2), car.position.y - (car.width / 2), car.length, car.width);
+        dynGc.fillRect(car.position.x - (car.length / 2) - (car.wheellength/2) - 0.2, car.position.y - (car.width / 2), car.length + car.wheellength + 0.4, car.width);
 
         // Windshield
         dynGc.setFill(Color.ALICEBLUE);
-        dynGc.fillRect(car.position.x + 0.2, car.position.y - 0.8, 0.7, 1.6);
+        dynGc.fillRect(car.position.x + (car.length/2) - 0.7, car.position.y - (car.width/2) + 0.2, 0.7, car.width - 0.4);
 
         // Spoiler
         dynGc.setFill(Color.DARKRED);
-        dynGc.fillRect(car.position.x - 2.2, car.position.y - 1.1, 0.8, 2.2);
+        dynGc.fillRect(car.position.x - (car.length/2) - (car.wheellength/2) - 0.2, car.position.y - (car.width/2) - 0.2, 0.8, car.width + 0.4);
 
         dynGc.restore();
     }
@@ -94,9 +94,9 @@ public class GraphicsHandler {
     private void drawWheel(double x, double y, boolean isFrontWheel, Car car) {
         dynGc.save();
         if (isFrontWheel) {
-            dynGc.transform(new Affine(new Rotate(Math.toDegrees(car.inputs.steeringAngle), x + car.wheellength / 2, y + car.wheelwidth / 2)));
+            dynGc.transform(new Affine(new Rotate(Math.toDegrees(car.inputs.steeringAngle), x, y)));
         }
-        dynGc.fillRect(x, y, car.wheellength, car.wheelwidth);
+        dynGc.fillRect(x - car.wheellength/2, y - car.wheelwidth/2, car.wheellength, car.wheelwidth);
         dynGc.restore();
     }
 

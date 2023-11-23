@@ -2,12 +2,8 @@ package com.project.carsim;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.chart.LineChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
@@ -16,7 +12,9 @@ import java.util.Set;
 public class SimController {
 
     @FXML
-    LineChart xAccelChart;
+    public Label gearLabel;
+    @FXML
+    LineChart xAccelChart, yAccelChart, xVelocChart, yVelocChart, spdChart;
     @FXML
     private Pane mainCanvas;
     @FXML
@@ -34,7 +32,7 @@ public class SimController {
     private Surface surface;
     private Car car;
     // Temporary to test Graphs
-    private Grapher throttleGrapher;
+    private Grapher xAccelGraph;
 
     @FXML
     public void initialize() {
@@ -53,7 +51,7 @@ public class SimController {
             }
         });
 
-        throttleGrapher = new Grapher(xAccelChart, "blue");
+        xAccelGraph = new Grapher(xAccelChart, "blue", -0.25, 1.25);
     }
 
     public void update(double deltaTime, Set<KeyCode> activeKeys, Car car) {
@@ -65,7 +63,9 @@ public class SimController {
         throttleBar.setProgress(car.inputs.throttle);
         rpmBar.setProgress(car.engine.rpm/6000);
 
-        throttleGrapher.update(car.inputs.throttle, deltaTime);
+        xAccelGraph.update(car.inputs.throttle, deltaTime);
+
+        gearLabel.setText("Current Gear: " + car.inputs.currentGear);
     }
 
     public void SurfaceSelected(ActionEvent actionEvent) {
