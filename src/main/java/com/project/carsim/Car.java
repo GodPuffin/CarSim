@@ -134,7 +134,7 @@ public class Car {
 
 
         // longtitudinal force on rear wheels - very simple traction model
-        ftraction.x = 100 * (this.inputs.throttle - this.inputs.brake * Math.signum(velocity.x));
+        ftraction.x = 10000 * (this.inputs.throttle - this.inputs.brake * Math.signum(velocity.x));
         ftraction.y = 0;
 
 
@@ -188,9 +188,10 @@ public class Car {
         position.x = position_wc.x;
         position.y = position_wc.y;
 
+
+
+
         inputs.update(activeKeys);
-//        System.out.println("posX: " + position.x + "posY: " + position.y);
-        System.out.println("velX: " + velocity.x + "velY: " + velocity.y);
     }
 
     public void reset(double x, double y) {
