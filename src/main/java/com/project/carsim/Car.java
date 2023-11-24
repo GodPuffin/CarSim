@@ -121,15 +121,15 @@ public class Car {
 // lateral force on front wheels = (Ca * slip angle) capped to friction circle * load
         flatf.x = 0;
         flatf.y = Constants.CA_F * slipanglefront;
-        flatf.y = Math.min(Constants.MAX_GRIP, flatf.y);
-        flatf.y = Math.max(-Constants.MAX_GRIP, flatf.y);
+        flatf.y = Math.min(surface.getFriction(), flatf.y);
+        flatf.y = Math.max(-surface.getFriction(), flatf.y);
         flatf.y *= weight;
 
         // lateral force on rear wheels
         flatr.x = 0;
         flatr.y = Constants.CA_R * slipanglerear;
-        flatr.y = Math.min(Constants.MAX_GRIP, flatr.y);
-        flatr.y = Math.max(-Constants.MAX_GRIP, flatr.y);
+        flatr.y = Math.min(surface.getFriction(), flatr.y);
+        flatr.y = Math.max(-surface.getFriction(), flatr.y);
         flatr.y *= weight;
 
 

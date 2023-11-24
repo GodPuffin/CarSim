@@ -3,7 +3,7 @@ package com.project.carsim;
 // 3 surfaces, each with different friction, and different appearance
 // Asphalt, Gravel, Ice
 public enum Surface {
-    ASPHALT(0.8, "Asphalt"), GRAVEL(0.5, "Gravel"), ICE(0.2, "Ice");
+    ASPHALT(5, "Asphalt"), GRAVEL(2, "Gravel"), ICE(1, "Ice");
 
     private final double friction;
     private final String name;
