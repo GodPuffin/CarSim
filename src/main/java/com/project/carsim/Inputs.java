@@ -83,4 +83,11 @@ public class Inputs {
         framesSinceLastShift++;
         updateSteeringAngle(deltaAngle);
     }
+
+    public void reset() {
+        this.throttle = 0;
+        this.brake = 0;
+        this.steeringAngle = 0;
+        this.currentGear = 0;
+    }
 }

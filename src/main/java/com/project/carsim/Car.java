@@ -40,7 +40,6 @@ public class Car {
     Vector ftraction;
     Vector flatf, flatr;
 
-
     Engine engine;
 
     public Car() {
@@ -79,10 +78,14 @@ public class Car {
 
     public void update(double dt, Set<KeyCode> activeKeys, Surface surface) {
 
+// Update Engine Torque
+        engine.update(inputs.throttle);
+
+
+
         sn = Math.sin(this.angle);
         cs = Math.cos(this.angle);
 
-        // SAE convention: x is to the front of the car, y is to the right, z is down
 
         // transform velocity in world reference frame to velocity in car reference frame
         velocity.x = sn * this.velocity_wc.y + cs * this.velocity_wc.x;
@@ -189,6 +192,9 @@ public class Car {
     }
 
     public void reset() {
+
+//        reset inputs
+        inputs.reset();
 
 //        resets movement
         position = new Vector();

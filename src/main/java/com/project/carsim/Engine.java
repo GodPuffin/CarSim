@@ -39,8 +39,8 @@ public class Engine {
         return TORQUE_POINTS[TORQUE_POINTS.length - 1];
     }
 
-    public void update(double dt, double throttle) {
-        setRpm(Wheel.angularSpeed);
+    public void update(double throttle) {
+        setRpm(4400); //set it to be proportional to the rear wheels rot speed and gear ratios
         this.torque = throttle * torqueCurve(rpm);
 
 
