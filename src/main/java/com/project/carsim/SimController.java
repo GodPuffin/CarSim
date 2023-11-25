@@ -11,36 +11,41 @@ import java.util.Set;
 
 public class SimController {
 
+    // FXML elements
     @FXML
-    public Label gearLabel;
+    private Label gearLabel;
     @FXML
-    LineChart xAccelChart, yAccelChart, xVelocChart, yVelocChart, spdChart;
+    private LineChart xAccelChart, yAccelChart, xVelocChart, yVelocChart, spdChart;
     @FXML
     private Pane mainCanvas;
     @FXML
-    ComboBox<String> surfaceComboBox;
+    private ComboBox<String> surfaceComboBox;
     @FXML
-    Button resetButton;
+    private Button resetButton;
     @FXML
-    Slider scaleSlider;
+    private Slider scaleSlider;
     @FXML
-    ProgressBar throttleBar;
+    private ProgressBar throttleBar;
     @FXML
-    ProgressBar rpmBar;
+    private ProgressBar rpmBar;
 
+    // Other variables
     private GraphicsHandler graphicsHandler;
     private Surface surface;
     private Car car;
-    // Temporary to test Graphs
-    private Grapher xAccelGraph;
+    private Grapher xAccelGraph, yAccelGraph, xVelocGraph, yVelocGraph, spdGraph;
 
+    // Initialization
     @FXML
     public void initialize() {
+        // Initialize graphics handler
         graphicsHandler = new GraphicsHandler(mainCanvas, 1200, 900);
+        // Initialize surface
         surface = Surface.ASPHALT;
 
+        // Set up scale slider
         scaleSlider.valueProperty().addListener((observable, oldValue, newValue) -> graphicsHandler.setScaleFactor(newValue.doubleValue()));
-
+        // Keep continual focus on canvas
         mainCanvas.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
             if (newScene != null) {
                 newScene.focusOwnerProperty().addListener((observable, oldFocusOwner, newFocusOwner) -> {
@@ -51,23 +56,35 @@ public class SimController {
             }
         });
 
-        xAccelGraph = new Grapher(xAccelChart, "blue", -0.25, 1.25);
+        // Initialize graphers
+        xAccelGraph = new Grapher(xAccelChart, "blue", -20, 20);
+        yAccelGraph = new Grapher(yAccelChart, "red", -20, 20);
+        xVelocGraph = new Grapher(xVelocChart, "blue", -60, 60);
+        yVelocGraph = new Grapher(yVelocChart, "red", -60, 60);
+        spdGraph = new Grapher(spdChart, "green", 0, 100);
     }
 
     public void update(double deltaTime, Set<KeyCode> activeKeys, Car car) {
 
+        // Update car and graphics
         this.car = car;
         car.update(deltaTime, activeKeys, surface);
         graphicsHandler.update(car, surface);
 
+        // Update UI elements
         throttleBar.setProgress(car.inputs.throttle);
-        rpmBar.setProgress(car.engine.rpm/6000);
-
-        xAccelGraph.update(car.inputs.throttle, deltaTime);
-
+//        rpmBar.setProgress(car.engine.rpm/6000);
         gearLabel.setText("Current Gear: " + car.inputs.currentGear);
+
+        // Update graphs
+        xAccelGraph.update(car.acceleration_wc.x, deltaTime);
+        yAccelGraph.update(car.acceleration_wc.y, deltaTime);
+        xVelocGraph.update(car.velocity_wc.x, deltaTime);
+        yVelocGraph.update(car.velocity_wc.y, deltaTime);
+        spdGraph.update(car.velocity_wc.magnitude(), deltaTime);
     }
 
+    // Event handlers
     public void SurfaceSelected(ActionEvent actionEvent) {
         switch (surfaceComboBox.getValue()) {
             case "Asphalt":
@@ -83,7 +100,7 @@ public class SimController {
     }
 
     public void resetPressed(ActionEvent actionEvent) {
-        car.reset(graphicsHandler.WIDTH/2, graphicsHandler.HEIGHT/2);
+        car.reset();
     }
 
     public void exitPressed(ActionEvent actionEvent) {

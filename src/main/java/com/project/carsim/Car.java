@@ -51,8 +51,8 @@ public class Car {
         this.h = 1.0;                     // m
         this.mass = 1500;                 // kg
         this.inertia = 1500;              // kg.m
-        this.width = 3;                 // m
-        this.length = 4.0;                // m, must be > wheelbase
+        this.width = 2;                 // m
+        this.length = 2.75;                // m, must be > wheelbase
         this.wheellength = 0.7;
         this.wheelwidth = 0.3;
 
@@ -92,8 +92,8 @@ public class Car {
 // Lateral force on wheels
 //
         // Resulting velocity of the wheels as result of the yaw rate of the car body
-        // v = yawrate * r where r is distance of wheel to CG (approx. half wheel base)
-        // yawrate (ang.velocity) must be in rad/s
+        // v = yaw rate * r where r is distance of wheel to CG (approx. half wheel base)
+        // yaw rate (ang.velocity) must be in rad/s
         //
         yawspeed = this.wheelbase * 0.5 * this.angularvelocity;
 
@@ -103,7 +103,7 @@ public class Car {
             rot_angle = Math.atan2(yawspeed, velocity.x);
         }
 
-        // Calculate the side slip angle of the car (a.k.a. beta)
+        // Calculate the side-slip angle of the car (a.k.a. beta)
         if (velocity.x == 0) {       // TODO: fix singularity
             sideslip = 0;
         } else {
@@ -132,7 +132,7 @@ public class Car {
         flatr.y *= weight;
 
 
-        // longtitudinal force on rear wheels - very simple traction model
+        // longitudinal force on rear wheels - very simple traction model
         ftraction.x = 10000 * (this.inputs.throttle - this.inputs.brake * Math.signum(velocity.x));
         ftraction.y = 0;
 
@@ -188,7 +188,7 @@ public class Car {
         inputs.update(activeKeys);
     }
 
-    public void reset(double x, double y) {
+    public void reset() {
 
 //        resets movement
         position = new Vector();

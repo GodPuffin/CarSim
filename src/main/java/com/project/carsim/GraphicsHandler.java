@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GraphicsHandler {
+
     public final double WIDTH;
     public final double HEIGHT;
     private final Canvas backgroundCanvas;
@@ -25,12 +26,14 @@ public class GraphicsHandler {
     private List<BackgroundElement> backgroundElements = new ArrayList<>();
     private Color backgroundColor = Color.BLACK;
 
+    // Constructor
     public GraphicsHandler(Pane canvasContainer, double width, double height) {
         this.WIDTH = width;
         this.HEIGHT = height;
 
         this.cameraPosition = new Vector(WIDTH / 2, HEIGHT / 2);
 
+        // Create two canvases, one for the background and one for the dynamic elements
         this.backgroundCanvas = new Canvas(width, height);
         this.dynamicCanvas = new Canvas(width, height);
 
@@ -42,16 +45,20 @@ public class GraphicsHandler {
 
     public void update(Car car, Surface surface) {
 
+        // Update background
         updateBackground(surface);
 
+        // clear dynamic canvas
         dynGc.clearRect(0, 0, WIDTH, HEIGHT);
         dynGc.save();
+
+        // Scale dynamic canvas
         dynGc.scale(scaleFactor, scaleFactor);
 
         // Update camera position based on the car's position
         updateCameraPosition(car);
 
-        // Translate dynamic canvas to follow the car
+        // Translate both canvas to follow the car
         dynGc.translate(-cameraPosition.x, -cameraPosition.y);
         bgGc.setTransform(1, 0, 0, 1, 0, 0);
         bgGc.translate(-cameraPosition.x * scaleFactor, -cameraPosition.y * scaleFactor);
@@ -93,23 +100,31 @@ public class GraphicsHandler {
 
     private void drawWheel(double x, double y, boolean isFrontWheel, Car car) {
         dynGc.save();
+        // Rotate the wheel based on the steering angle
         if (isFrontWheel) {
             dynGc.transform(new Affine(new Rotate(Math.toDegrees(car.inputs.steeringAngle), x, y)));
         }
+        // Draw the wheel
         dynGc.fillRect(x - car.wheellength/2, y - car.wheelwidth/2, car.wheellength, car.wheelwidth);
         dynGc.restore();
     }
 
     private void updateBackground(Surface surface) {
+
         bgGc.save();
+
+        // Scale & clear background canvas
         bgGc.scale(scaleFactor, scaleFactor);
         bgGc.clearRect(-500, -500, WIDTH + 1000, HEIGHT + 1000);
 
+        // Generate background elements if the surface has changed
         if (surface != previousSurface) {
             backgroundElements.clear();
             generateBackgroundElements(surface);
             previousSurface = surface;
         }
+
+        // Draw background elements
         bgGc.setFill(backgroundColor);
         bgGc.fillRect(0, 0, WIDTH, HEIGHT);
         for (BackgroundElement element : backgroundElements) {
@@ -127,6 +142,7 @@ public class GraphicsHandler {
         bgGc.restore();
     }
 
+    // Generate background elements based on the surface
     private void generateBackgroundElements(Surface surface) {
         switch (surface) {
             case ASPHALT:
@@ -164,7 +180,7 @@ public class GraphicsHandler {
         this.scaleFactor = scaleFactor;
     }
 
-    // Define a class for background elements
+    // Background elements class
     private static class BackgroundElement {
         double x;
         double y;

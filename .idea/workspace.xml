@@ -7,7 +7,10 @@
     <list default="true" id="c92963a1-2c26-4c59-8d27-dd8761509578" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Inputs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Inputs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Grapher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Grapher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/GraphicsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/GraphicsHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Surface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Surface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +44,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -81,6 +85,7 @@
       <workItem from="1700678439655" duration="55000" />
       <workItem from="1700694099529" duration="5651000" />
       <workItem from="1700859954492" duration="7737000" />
+      <workItem from="1700930340776" duration="3142000" />
     </task>
     <servers />
   </component>

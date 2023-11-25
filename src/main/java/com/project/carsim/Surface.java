@@ -1,8 +1,9 @@
 package com.project.carsim;
 
-// 3 surfaces, each with different friction, and different appearance
-// Asphalt, Gravel, Ice
 public enum Surface {
+
+    // 3 surfaces, each with different friction, and different appearance
+    // Asphalt, Gravel, Ice
     ASPHALT(5, "Asphalt"), GRAVEL(2, "Gravel"), ICE(1, "Ice");
 
     private final double friction;
