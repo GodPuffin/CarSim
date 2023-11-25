@@ -15,7 +15,7 @@ public class Car {
     double length, width;
     double wheellength, wheelwidth;
 
-    Vector position_wc;        // position of car centre in world coordinates
+    Vector position;        // position of car centre in world coordinates
     Vector velocity_wc;        // velocity vector of car in world coordinates
 
     double angle;                // angle of car body orientation (in rads)
@@ -39,25 +39,24 @@ public class Car {
     double weight;
     Vector ftraction;
     Vector flatf, flatr;
-    Vector position;
 
 
     Engine engine;
 
     public Car() {
 
-        this.b = 1.0;                     // m
-        this.c = 1.0;                     // m
+        this.b = 2.0;                     // m
+        this.c = 2.0;                     // m
         this.wheelbase = this.b + this.c; // m
         this.h = 1.0;                     // m
         this.mass = 1500;                 // kg
         this.inertia = 1500;              // kg.m
-        this.width = 2;                 // m
-        this.length = 3.0;                // m, must be > wheelbase
+        this.width = 3;                 // m
+        this.length = 4.0;                // m, must be > wheelbase
         this.wheellength = 0.7;
         this.wheelwidth = 0.3;
 
-        this.position_wc = new Vector();
+        this.position = new Vector();
         this.velocity_wc = new Vector();
 
         this.angle = 0;
@@ -74,7 +73,6 @@ public class Car {
         ftraction = new Vector();
         flatf = new Vector();
         flatr = new Vector();
-        position = new Vector();
 
 
     }
@@ -89,6 +87,7 @@ public class Car {
         // transform velocity in world reference frame to velocity in car reference frame
         velocity.x = sn * this.velocity_wc.y + cs * this.velocity_wc.x;
         velocity.y = -cs * this.velocity_wc.y + sn * this.velocity_wc.x;
+
 
 // Lateral force on wheels
 //
@@ -172,8 +171,8 @@ public class Car {
 
         // position is integrated velocity
         //
-        this.position_wc.x += dt * this.velocity_wc.x;
-        this.position_wc.y += dt * this.velocity_wc.y;
+        this.position.x += dt * this.velocity_wc.x;
+        this.position.y += dt * this.velocity_wc.y;
 
 // Angular velocity and heading
 
@@ -185,16 +184,21 @@ public class Car {
         //
         this.angle += dt * this.angularvelocity;
 
-        position.x = position_wc.x;
-        position.y = position_wc.y;
-
-
-
 
         inputs.update(activeKeys);
     }
 
     public void reset(double x, double y) {
+
+//        resets movement
+        position = new Vector();
+        velocity_wc = new Vector();
+        acceleration_wc = new Vector();
+
+//        resets rotation
+        angle = 0;
+        angularvelocity = 0;
+        angular_acceleration = 0;
 
     }
 }

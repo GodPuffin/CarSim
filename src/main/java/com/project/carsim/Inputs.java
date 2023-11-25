@@ -11,7 +11,7 @@ public class Inputs {
     int currentGear = 2;
     private int framesSinceLastShift;
 
-    void Inputs(){
+    void Inputs() {
         this.steeringAngle = 0;
         this.throttle = 0;
         this.brake = 0;
@@ -42,10 +42,12 @@ public class Inputs {
     }
 
     private boolean canShift() {
-        return framesSinceLastShift<=100;
+        return framesSinceLastShift <= 100;
     }
+
     public void update(Set<KeyCode> activeKeys) {
         double deltaAngle = 0;
+        brake = 0;
 
         if (activeKeys.contains(KeyCode.LEFT)) {
             deltaAngle = -0.1;
@@ -58,23 +60,23 @@ public class Inputs {
                 throttle += 0.05;
             }
         } else if (activeKeys.contains(KeyCode.DOWN)) {
-            if (throttle > 0.05) {
-                throttle -= 0.05;
-            }
+            throttle = (throttle > 0.05) ? throttle - 0.05 : 0;
+            brake = 1;
+
         } else {
             throttle *= 0.95;
         }
         if (activeKeys.contains(KeyCode.A)) {
             if (currentGear < 6 && canShift()) {
                 currentGear++;
-                framesSinceLastShift=0;
+                framesSinceLastShift = 0;
             }
             System.out.println(currentGear);
         }
         if (activeKeys.contains(KeyCode.Z)) {
             if (currentGear < 1 && canShift()) {
                 currentGear--;
-                framesSinceLastShift=0;
+                framesSinceLastShift = 0;
             }
             System.out.println(currentGear);
         }

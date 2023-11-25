@@ -7,8 +7,7 @@
     <list default="true" id="c92963a1-2c26-4c59-8d27-dd8761509578" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Surface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Surface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Inputs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Inputs.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +80,7 @@
       <workItem from="1700670332225" duration="2381000" />
       <workItem from="1700678439655" duration="55000" />
       <workItem from="1700694099529" duration="5651000" />
-      <workItem from="1700859954492" duration="3790000" />
+      <workItem from="1700859954492" duration="7737000" />
     </task>
     <servers />
   </component>
