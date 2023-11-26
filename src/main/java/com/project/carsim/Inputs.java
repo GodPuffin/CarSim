@@ -8,7 +8,7 @@ public class Inputs {
     double throttle;
     double brake;
     double steeringAngle = 0;
-    int currentGear = 2;
+    int currentGear = 1;
     private int framesSinceLastShift;
 
     void Inputs() {
@@ -42,7 +42,7 @@ public class Inputs {
     }
 
     private boolean canShift() {
-        return framesSinceLastShift <= 100;
+        return framesSinceLastShift >= 16;
     }
 
     public void update(Set<KeyCode> activeKeys) {
@@ -64,7 +64,7 @@ public class Inputs {
             brake = 1;
 
         } else {
-            throttle *= 0.95;
+            throttle = (throttle > 0.05) ? throttle*0.95 : 0;
         }
         if (activeKeys.contains(KeyCode.A)) {
             if (currentGear < 6 && canShift()) {
@@ -74,7 +74,7 @@ public class Inputs {
             System.out.println(currentGear);
         }
         if (activeKeys.contains(KeyCode.Z)) {
-            if (currentGear < 1 && canShift()) {
+            if (currentGear > -1 && canShift()) {
                 currentGear--;
                 framesSinceLastShift = 0;
             }

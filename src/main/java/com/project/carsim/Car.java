@@ -22,6 +22,8 @@ public class Car {
     double angularvelocity;
 
     Inputs inputs;
+    Engine engine;
+    Drivetrain drivetrain;
 
     Vector velocity;
     Vector acceleration_wc;
@@ -39,8 +41,9 @@ public class Car {
     double weight;
     Vector ftraction;
     Vector flatf, flatr;
+    Vector fdrive;
+    Wheel wheels;
 
-    Engine engine;
 
     public Car() {
 
@@ -63,6 +66,7 @@ public class Car {
 
         inputs = new Inputs();
         engine = new Engine();
+        drivetrain = new Drivetrain();
 
         velocity = new Vector();
         acceleration_wc = new Vector();
@@ -72,6 +76,7 @@ public class Car {
         ftraction = new Vector();
         flatf = new Vector();
         flatr = new Vector();
+        fdrive = new Vector();
 
 
     }
@@ -79,8 +84,7 @@ public class Car {
     public void update(double dt, Set<KeyCode> activeKeys, Surface surface) {
 
 // Update Engine Torque
-        engine.update(inputs.throttle);
-
+        engine.update();
 
 
         sn = Math.sin(this.angle);
@@ -134,10 +138,14 @@ public class Car {
         flatr.y = Math.max(-surface.getFriction(), flatr.y);
         flatr.y *= weight;
 
+        double engineActualTorque = (engine.maxTorque * (this.inputs.throttle - this.inputs.brake * Math.signum(velocity.x)));
 
         // longitudinal force on rear wheels - very simple traction model
-        ftraction.x = 10000 * (this.inputs.throttle - this.inputs.brake * Math.signum(velocity.x));
+        ftraction.x = (this.h/this.wheelbase)*this.mass*engineActualTorque;
         ftraction.y = 0;
+
+        fdrive.x = (engineActualTorque * drivetrain.transmissionRatio[inputs.currentGear + 1] * drivetrain.differentialRatio * drivetrain.transmissionEfficiency) / (Wheel.radius);
+        fdrive.y = 0;
 
 
 // Forces and torque on body
@@ -147,8 +155,8 @@ public class Car {
         resistance.y = -(Constants.RESISTANCE * velocity.y + Constants.DRAG * velocity.y * Math.abs(velocity.y));
 
         // sum forces
-        force.x = ftraction.x + Math.sin(this.inputs.steeringAngle) * flatf.x + flatr.x + resistance.x;
-        force.y = ftraction.y + Math.cos(this.inputs.steeringAngle) * flatf.y + flatr.y + resistance.y;
+        force.x = ftraction.x + Math.sin(this.inputs.steeringAngle) * flatf.x + flatr.x + resistance.x + fdrive.x;
+        force.y = ftraction.y + Math.cos(this.inputs.steeringAngle) * flatf.y + flatr.y + resistance.y + fdrive.y;
 
         // torque on body from lateral forces
         torque = this.b * flatf.y - this.c * flatr.y;

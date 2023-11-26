@@ -3,12 +3,12 @@ package com.project.carsim;
 public class Engine {
 
     double rpm;    // Current engine RPM
-    double torque; // Current engine torque
+    double maxTorque; // Current engine torque
 
 
     public Engine() {
         rpm = 1000.0; // Initial RPM
-        torque = 0;
+        maxTorque = 0;
     }
 
 
@@ -17,7 +17,7 @@ public class Engine {
     }
 
     public void setTorque(double torque) {
-        this.torque = torque;
+        this.maxTorque = torque;
     }
 
     double torqueCurve(double currentRPM) {
@@ -39,9 +39,9 @@ public class Engine {
         return TORQUE_POINTS[TORQUE_POINTS.length - 1];
     }
 
-    public void update(double throttle) {
+    public void update() {
         setRpm(4400); //set it to be proportional to the rear wheels rot speed and gear ratios
-        this.torque = throttle * torqueCurve(rpm);
+        this.maxTorque = torqueCurve(rpm);
 
 
     }
