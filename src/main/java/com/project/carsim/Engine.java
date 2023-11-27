@@ -40,7 +40,7 @@ public class Engine {
     }
 
     public void update() {
-        setRpm(4400); //set it to be proportional to the rear wheels rot speed and gear ratios
+        setRpm(1000); //set it to be proportional to the rear wheels rot speed and gear ratios
         this.maxTorque = torqueCurve(rpm);
 
 

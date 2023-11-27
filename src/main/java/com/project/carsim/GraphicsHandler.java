@@ -19,7 +19,7 @@ public class GraphicsHandler {
     private final Canvas dynamicCanvas;
     private final GraphicsContext bgGc;
     private final GraphicsContext dynGc;
-    private final double cameraLag = 0.05;
+    private final double cameraLag = 0.1;
     private double scaleFactor = 10;
     private Surface previousSurface;
     private Vector cameraPosition;
@@ -68,22 +68,27 @@ public class GraphicsHandler {
 
         // Draw wheels
         dynGc.setFill(Color.BLACK);
-        drawWheel(car.position.x - car.length/2, car.position.y - car.width/2, false, car);
-        drawWheel(car.position.x + car.length/2, car.position.y - car.width/2, true, car);
-        drawWheel(car.position.x - car.length/2, car.position.y + car.width/2, false, car);
-        drawWheel(car.position.x + car.length/2, car.position.y + car.width/2, true, car);
+        drawWheel(car.position.x - car.length / 2, car.position.y - car.width / 2, false, car);
+        drawWheel(car.position.x + car.length / 2, car.position.y - car.width / 2, true, car);
+        drawWheel(car.position.x - car.length / 2, car.position.y + car.width / 2, false, car);
+        drawWheel(car.position.x + car.length / 2, car.position.y + car.width / 2, true, car);
 
         // Draw car
-        dynGc.setFill(Color.RED);
-        dynGc.fillRect(car.position.x - (car.length / 2) - (car.wheellength/2) - 0.2, car.position.y - (car.width / 2), car.length + car.wheellength + 0.4, car.width);
+        if (car.sliding) {
+            dynGc.setFill(Color.BLUE);
+
+        } else {
+            dynGc.setFill(Color.RED);
+        }
+        dynGc.fillRect(car.position.x - (car.length / 2) - (car.wheellength / 2) - 0.2, car.position.y - (car.width / 2), car.length + car.wheellength + 0.4, car.width);
 
         // Windshield
         dynGc.setFill(Color.ALICEBLUE);
-        dynGc.fillRect(car.position.x + (car.length/2) - 0.7, car.position.y - (car.width/2) + 0.2, 0.7, car.width - 0.4);
+        dynGc.fillRect(car.position.x + (car.length / 2) - 0.7, car.position.y - (car.width / 2) + 0.2, 0.7, car.width - 0.4);
 
         // Spoiler
         dynGc.setFill(Color.DARKRED);
-        dynGc.fillRect(car.position.x - (car.length/2) - (car.wheellength/2) - 0.2, car.position.y - (car.width/2) - 0.2, 0.8, car.width + 0.4);
+        dynGc.fillRect(car.position.x - (car.length / 2) - (car.wheellength / 2) - 0.2, car.position.y - (car.width / 2) - 0.2, 0.8, car.width + 0.4);
 
         dynGc.restore();
     }
@@ -105,7 +110,7 @@ public class GraphicsHandler {
             dynGc.transform(new Affine(new Rotate(Math.toDegrees(car.inputs.steeringAngle), x, y)));
         }
         // Draw the wheel
-        dynGc.fillRect(x - car.wheellength/2, y - car.wheelwidth/2, car.wheellength, car.wheelwidth);
+        dynGc.fillRect(x - car.wheellength / 2, y - car.wheelwidth / 2, car.wheellength, car.wheelwidth);
         dynGc.restore();
     }
 

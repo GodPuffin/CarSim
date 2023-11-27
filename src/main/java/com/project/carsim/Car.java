@@ -14,6 +14,7 @@ public class Car {
     double inertia;        // in kg.m
     double length, width;
     double wheellength, wheelwidth;
+    boolean sliding;
 
     Vector position;        // position of car centre in world coordinates
     Vector velocity_wc;        // velocity vector of car in world coordinates
@@ -67,6 +68,7 @@ public class Car {
         inputs = new Inputs();
         engine = new Engine();
         drivetrain = new Drivetrain();
+        wheels = new Wheel();
 
         velocity = new Vector();
         acceleration_wc = new Vector();
@@ -121,6 +123,8 @@ public class Car {
         slipanglefront = sideslip + rot_angle - this.inputs.steeringAngle;
         slipanglerear = sideslip - rot_angle;
 
+        sliding = (Math.abs(sideslip)>=0.7);
+
         // weight per axle = half car mass times 1G (=9.8m/s^2)
         weight = this.mass * 9.8 * 0.5;
 
@@ -144,7 +148,7 @@ public class Car {
         ftraction.x = (this.h/this.wheelbase)*this.mass*engineActualTorque;
         ftraction.y = 0;
 
-        fdrive.x = (engineActualTorque * drivetrain.transmissionRatio[inputs.currentGear + 1] * drivetrain.differentialRatio * drivetrain.transmissionEfficiency) / (Wheel.radius);
+        fdrive.x = (engineActualTorque * drivetrain.transmissionRatio[inputs.currentGear + 1] * drivetrain.differentialRatio * drivetrain.transmissionEfficiency) / (wheels.radius);
         fdrive.y = 0;
 
 

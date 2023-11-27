@@ -8,7 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Inputs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Inputs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/GraphicsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/GraphicsHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Wheel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Wheel.java" afterDir="false" />
     </list>
@@ -86,6 +86,7 @@
       <workItem from="1700694099529" duration="5651000" />
       <workItem from="1700859954492" duration="7737000" />
       <workItem from="1700930340776" duration="3142000" />
+      <workItem from="1701090393128" duration="1011000" />
     </task>
     <servers />
   </component>
