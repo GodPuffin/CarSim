@@ -23,7 +23,7 @@ public class SimController {
     @FXML
     private Button resetButton;
     @FXML
-    private Slider scaleSlider, engineSlider;
+    private Slider scaleSlider, engineSlider, weightSlider;
     @FXML
     private ProgressBar throttleBar;
     @FXML
@@ -45,8 +45,18 @@ public class SimController {
 
         // Set up scale slider
         scaleSlider.valueProperty().addListener((observable, oldValue, newValue) -> graphicsHandler.setScaleFactor(newValue.doubleValue()));
+
         //Set up engine slider
-        engineSlider.valueProperty().addListener((observable, oldValue, newValue ) -> car.enginePower= (double) newValue);
+        engineSlider.valueProperty().addListener((observable, oldValue, newValue) -> car.enginePower = (double) newValue);
+
+        //Set up weight slider
+        weightSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            car.mass = (double) newValue;
+            car.inertia = (double) newValue;
+            car.weight =  0.5 * 9.8 * (double) newValue;
+
+        });
+
         // Keep continual focus on canvas
         mainCanvas.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
             if (newScene != null) {
@@ -76,7 +86,7 @@ public class SimController {
         // Update UI elements
         throttleBar.setProgress(car.inputs.throttle);
         rpmBar.setProgress(1000);
-        gearLabel.setText(String.valueOf(car.force.magnitude()));
+        gearLabel.setText(String.valueOf(car.velocity_wc.y));
 
         // Update graphs
         xAccelGraph.update(car.acceleration_wc.x, deltaTime);

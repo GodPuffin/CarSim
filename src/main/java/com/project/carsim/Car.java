@@ -103,15 +103,15 @@ public class Car {
         //
         yawspeed = this.wheelbase * 0.5 * this.angularvelocity;
 
-        if( velocity.x == 0 )
+        if (velocity.x <= 0)
             rot_angle = 0;
         else
-            rot_angle = Math.atan2( yawspeed, velocity.x);
+            rot_angle = Math.atan2(yawspeed, velocity.x);
         // Calculate the side slip angle of the car (a.k.a. beta)
-        if( velocity.x == 0 )
+        if (velocity.x == 0)
             sideslip = 0;
         else
-            sideslip = Math.atan2( velocity.y, velocity.x);
+            sideslip = Math.atan2(velocity.y, velocity.x);
 
         // Calculate slip angles for front and rear wheels (a.k.a. alpha)
         slipanglefront = sideslip + rot_angle - this.inputs.steeringAngle;
@@ -136,7 +136,18 @@ public class Car {
         flatr.y = Math.max(-surface.getFriction(), flatr.y);
         flatr.y *= weight;
 
-        ftraction.x = 10000*(this.inputs.throttle - this.inputs.brake*Math.signum(velocity.x));
+        if (this.inputs.brake == 1) {
+            if (Math.abs(velocity.x) <= 0.01) {
+                velocity.x = 0;
+                ftraction.x = 0;
+            } else {
+                ftraction.x = enginePower * (this.inputs.throttle - this.inputs.brake * Math.signum(velocity.x));
+            }
+        } else {
+
+            ftraction.x = enginePower * (this.inputs.throttle - this.inputs.brake * Math.signum(velocity.x));
+
+        }
         ftraction.y = 0;
 
 // Forces and torque on body
