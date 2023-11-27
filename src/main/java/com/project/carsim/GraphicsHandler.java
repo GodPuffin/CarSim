@@ -68,16 +68,39 @@ public class GraphicsHandler {
 
         if (car.sliding) {
             // Calculate skid mark position for each wheel
-                double distanceFromCenterX = car.length/2;
-                double distanceFromCenterY = car.width/2;
+            double distanceFromCenterX = car.length / 2;
+            double distanceFromCenterY = car.width / 2;
 
-                double offsetX = Math.cos(car.angle) * distanceFromCenterX - Math.sin(car.angle) * distanceFromCenterY;
-                double offsetY = Math.sin(car.angle) * distanceFromCenterX + Math.cos(car.angle) * distanceFromCenterY;
-                double skidMarkX = car.position.x + offsetX;
-                double skidMarkY = car.position.y + offsetY;
-                skidMarks.add(new BackgroundElement(skidMarkX, skidMarkY, car.wheelwidth, "circle", Color.BLACK));
+            double sn = Math.sin(car.angle);
+            double cs = Math.cos(car.angle);
+
+
+            double offsetX = (cs * distanceFromCenterX - sn * distanceFromCenterY);
+            double offsetY = (sn * distanceFromCenterX + cs * distanceFromCenterY);
+            double skidMarkX = car.position.x + offsetX;
+            double skidMarkY = car.position.y + offsetY;
+            skidMarks.add(new BackgroundElement(skidMarkX, skidMarkY, car.wheelwidth, "circle", Color.BLACK));
+
+            offsetX = -(cs * distanceFromCenterX - sn * distanceFromCenterY);
+            offsetY = -(sn * distanceFromCenterX + cs * distanceFromCenterY);
+            skidMarkX = car.position.x + offsetX;
+            skidMarkY = car.position.y + offsetY;
+            skidMarks.add(new BackgroundElement(skidMarkX, skidMarkY, car.wheelwidth, "circle", Color.BLACK));
+
+            offsetX = -(cs * distanceFromCenterX + sn * distanceFromCenterY);
+            offsetY = -(sn * distanceFromCenterX - cs * distanceFromCenterY);
+            skidMarkX = car.position.x + offsetX;
+            skidMarkY = car.position.y + offsetY;
+            skidMarks.add(new BackgroundElement(skidMarkX, skidMarkY, car.wheelwidth, "circle", Color.BLACK));
+
+            offsetX = (cs * distanceFromCenterX + sn * distanceFromCenterY);
+            offsetY = (sn * distanceFromCenterX - cs * distanceFromCenterY);
+            skidMarkX = car.position.x + offsetX;
+            skidMarkY = car.position.y + offsetY;
+            skidMarks.add(new BackgroundElement(skidMarkX, skidMarkY, car.wheelwidth, "circle", Color.BLACK));
+
         }
-        if (skidMarks.size() > 1000) {
+        if (skidMarks.size() > 2000) {
             for (int i = 0; i < 4; i++) {
                 skidMarks.remove(0);
             }
