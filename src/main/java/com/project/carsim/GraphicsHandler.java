@@ -2,7 +2,6 @@ package com.project.carsim;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
@@ -24,6 +23,7 @@ public class GraphicsHandler {
     private Surface previousSurface;
     private Vector cameraPosition;
     private List<BackgroundElement> backgroundElements = new ArrayList<>();
+    private List<BackgroundElement> skidMarks = new ArrayList<>();
     private Color backgroundColor = Color.BLACK;
 
     // Constructor
@@ -66,6 +66,23 @@ public class GraphicsHandler {
         // Rotate the car to face the direction it is heading
         dynGc.transform(new Affine(new Rotate(Math.toDegrees(car.angle), car.position.x, car.position.y)));
 
+        if (car.sliding) {
+            // Calculate skid mark position for each wheel
+                double distanceFromCenterX = car.length/2;
+                double distanceFromCenterY = car.width/2;
+
+                double offsetX = Math.cos(car.angle) * distanceFromCenterX - Math.sin(car.angle) * distanceFromCenterY;
+                double offsetY = Math.sin(car.angle) * distanceFromCenterX + Math.cos(car.angle) * distanceFromCenterY;
+                double skidMarkX = car.position.x + offsetX;
+                double skidMarkY = car.position.y + offsetY;
+                skidMarks.add(new BackgroundElement(skidMarkX, skidMarkY, car.wheelwidth, "circle", Color.BLACK));
+        }
+        if (skidMarks.size() > 1000) {
+            for (int i = 0; i < 4; i++) {
+                skidMarks.remove(0);
+            }
+        }
+
         // Draw wheels
         dynGc.setFill(Color.BLACK);
         drawWheel(car.position.x - car.length / 2, car.position.y - car.width / 2, false, car);
@@ -74,12 +91,7 @@ public class GraphicsHandler {
         drawWheel(car.position.x + car.length / 2, car.position.y + car.width / 2, true, car);
 
         // Draw car
-        if (car.sliding) {
-            dynGc.setFill(Color.BLUE);
-
-        } else {
-            dynGc.setFill(Color.RED);
-        }
+        dynGc.setFill(Color.RED);
         dynGc.fillRect(car.position.x - (car.length / 2) - (car.wheellength / 2) - 0.2, car.position.y - (car.width / 2), car.length + car.wheellength + 0.4, car.width);
 
         // Windshield
@@ -143,6 +155,10 @@ public class GraphicsHandler {
                     break;
             }
         }
+        for (BackgroundElement element : skidMarks) {
+            bgGc.setFill(element.color);
+            bgGc.fillOval(element.x, element.y, element.size, element.size);
+        }
 
         bgGc.restore();
     }
@@ -151,30 +167,30 @@ public class GraphicsHandler {
     private void generateBackgroundElements(Surface surface) {
         switch (surface) {
             case ASPHALT:
-                int numberOfSpeckles = 500;
+                int numberOfSpeckles = 5000;
                 for (int i = 0; i < numberOfSpeckles; i++) {
                     double x = Math.random() * WIDTH;
                     double y = Math.random() * HEIGHT;
-                    backgroundElements.add(new BackgroundElement(x, y, 2, "rectangle", Color.DARKGRAY));
+                    backgroundElements.add(new BackgroundElement(x, y, 0.2, "rectangle", Color.DARKGRAY));
                     backgroundColor = Color.GRAY;
                 }
                 break;
             case GRAVEL:
-                int numberOfStones = 1000;
+                int numberOfStones = 10000;
                 for (int i = 0; i < numberOfStones; i++) {
                     double x = Math.random() * WIDTH;
                     double y = Math.random() * HEIGHT;
-                    backgroundElements.add(new BackgroundElement(x, y, 5, "circle", Color.LIGHTGRAY));
+                    backgroundElements.add(new BackgroundElement(x, y, 0.5, "circle", Color.LIGHTGRAY));
                     backgroundColor = Color.DARKGRAY;
 
                 }
                 break;
             case ICE:
-                int numberOfPatches = 100;
+                int numberOfPatches = 1000;
                 for (int i = 0; i < numberOfPatches; i++) {
                     double x = Math.random() * WIDTH;
                     double y = Math.random() * HEIGHT;
-                    backgroundElements.add(new BackgroundElement(x, y, 20, "circle", Color.WHITE));
+                    backgroundElements.add(new BackgroundElement(x, y, 2, "circle", Color.WHITE));
                     backgroundColor = Color.LIGHTBLUE;
                 }
                 break;

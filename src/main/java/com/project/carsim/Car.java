@@ -2,9 +2,12 @@ package com.project.carsim;
 
 import javafx.scene.input.KeyCode;
 
+import java.text.DecimalFormat;
 import java.util.Set;
 
 public class Car {
+
+    DecimalFormat df = new DecimalFormat("#.##");
 
     double enginePower;
     double wheelbase;        // wheelbase in m
@@ -103,12 +106,12 @@ public class Car {
         if( velocity.x == 0 )
             rot_angle = 0;
         else
-            rot_angle = Math.atan( yawspeed / velocity.x);
+            rot_angle = Math.atan2( yawspeed, velocity.x);
         // Calculate the side slip angle of the car (a.k.a. beta)
         if( velocity.x == 0 )
             sideslip = 0;
         else
-            sideslip = Math.atan( velocity.y / velocity.x);
+            sideslip = Math.atan2( velocity.y, velocity.x);
 
         // Calculate slip angles for front and rear wheels (a.k.a. alpha)
         slipanglefront = sideslip + rot_angle - this.inputs.steeringAngle;

@@ -10,7 +10,7 @@ public class Grapher {
     private double currentTime = 0.0;
     private final double updateInterval = 1.0 / 60.0;
 
-    public Grapher(XYChart<Number, Number> chart, String color, double min, double max) {
+    public Grapher(XYChart<Number, Number> chart, String color) {
         // Create a new series for the chart
         series = new XYChart.Series<>();
         chart.getData().add(series);
@@ -20,14 +20,21 @@ public class Grapher {
         yAxis = (NumberAxis) chart.getYAxis();
 
         // Set the bounds
-        yAxis.setLowerBound(min);
-        yAxis.setUpperBound(max);
+        yAxis.setLowerBound(-1);
+        yAxis.setUpperBound(1);
 
         // Set the color
         series.getNode().setStyle("-fx-stroke: " + color + ";");
     }
 
     public void update(double value, double deltaTime) {
+
+        if (value > yAxis.getUpperBound()) {
+            yAxis.setUpperBound(value);
+        }
+        if (value < yAxis.getLowerBound()) {
+            yAxis.setLowerBound(value);
+        }
 
         // Add a new data point to the series
         series.getData().add(new XYChart.Data<>(currentTime, value));

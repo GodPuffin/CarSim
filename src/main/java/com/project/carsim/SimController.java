@@ -59,11 +59,11 @@ public class SimController {
         });
 
         // Initialize graphers
-        xAccelGraph = new Grapher(xAccelChart, "blue", -20, 20);
-        yAccelGraph = new Grapher(yAccelChart, "red", -20, 20);
-        xVelocGraph = new Grapher(xVelocChart, "blue", -60, 60);
-        yVelocGraph = new Grapher(yVelocChart, "red", -60, 60);
-        spdGraph = new Grapher(spdChart, "green", 0, 100);
+        xAccelGraph = new Grapher(xAccelChart, "blue");
+        yAccelGraph = new Grapher(yAccelChart, "red");
+        xVelocGraph = new Grapher(xVelocChart, "blue");
+        yVelocGraph = new Grapher(yVelocChart, "red");
+        spdGraph = new Grapher(spdChart, "green");
     }
 
     public void update(double deltaTime, Set<KeyCode> activeKeys, Car car) {
@@ -80,9 +80,9 @@ public class SimController {
 
         // Update graphs
         xAccelGraph.update(car.acceleration_wc.x, deltaTime);
-        yAccelGraph.update(car.acceleration_wc.y, deltaTime);
+        yAccelGraph.update(-car.acceleration_wc.y, deltaTime);
         xVelocGraph.update(car.velocity_wc.x, deltaTime);
-        yVelocGraph.update(car.velocity_wc.y, deltaTime);
+        yVelocGraph.update(-car.velocity_wc.y, deltaTime);
         spdGraph.update(car.velocity_wc.magnitude(), deltaTime);
     }
 
