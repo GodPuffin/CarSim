@@ -6,6 +6,7 @@ import java.util.Set;
 
 public class Car {
 
+    double enginePower;
     double wheelbase;        // wheelbase in m
     double b;                // in m, distance from CG to front axle
     double c;                // in m, distance from CG to rear axle
@@ -46,6 +47,7 @@ public class Car {
 
     public Car() {
 
+        enginePower = 10000;
         this.b = 2.0;                     // m
         this.c = 2.0;                     // m
         this.wheelbase = this.b + this.c; // m
@@ -131,7 +133,7 @@ public class Car {
         flatr.y = Math.max(-surface.getFriction(), flatr.y);
         flatr.y *= weight;
 
-        ftraction.x = 10000*(this.inputs.throttle - this.inputs.brake*Math.signum(velocity.x));
+        ftraction.x = enginePower*(this.inputs.throttle - this.inputs.brake*Math.signum(velocity.x));
         ftraction.y = 0;
 
 // Forces and torque on body
@@ -198,8 +200,6 @@ public class Car {
         angle = 0;
         angularvelocity = 0;
         angular_acceleration = 0;
-
-        wheels.reset();
 
     }
 }

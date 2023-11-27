@@ -23,7 +23,7 @@ public class SimController {
     @FXML
     private Button resetButton;
     @FXML
-    private Slider scaleSlider;
+    private Slider scaleSlider, engineSlider;
     @FXML
     private ProgressBar throttleBar;
     @FXML
@@ -45,6 +45,8 @@ public class SimController {
 
         // Set up scale slider
         scaleSlider.valueProperty().addListener((observable, oldValue, newValue) -> graphicsHandler.setScaleFactor(newValue.doubleValue()));
+        //Set up engine slider
+        engineSlider.valueProperty().addListener((observable, oldValue, newValue ) -> car.enginePower= (double) newValue);
         // Keep continual focus on canvas
         mainCanvas.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
             if (newScene != null) {
