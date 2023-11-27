@@ -133,7 +133,7 @@ public class Car {
         flatr.y = Math.max(-surface.getFriction(), flatr.y);
         flatr.y *= weight;
 
-        ftraction.x = enginePower*(this.inputs.throttle - this.inputs.brake*Math.signum(velocity.x));
+        ftraction.x = 10000*(this.inputs.throttle - this.inputs.brake*Math.signum(velocity.x));
         ftraction.y = 0;
 
 // Forces and torque on body
