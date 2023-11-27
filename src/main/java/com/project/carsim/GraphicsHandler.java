@@ -194,7 +194,7 @@ public class GraphicsHandler {
                 for (int i = 0; i < numberOfSpeckles; i++) {
                     double x = Math.random() * WIDTH;
                     double y = Math.random() * HEIGHT;
-                    backgroundElements.add(new BackgroundElement(x, y, 0.2, "rectangle", Color.DARKGRAY));
+                    backgroundElements.add(new BackgroundElement(x, y, 0.4, "rectangle", Color.DARKGRAY));
                     backgroundColor = Color.GRAY;
                 }
                 break;
@@ -203,7 +203,7 @@ public class GraphicsHandler {
                 for (int i = 0; i < numberOfStones; i++) {
                     double x = Math.random() * WIDTH;
                     double y = Math.random() * HEIGHT;
-                    backgroundElements.add(new BackgroundElement(x, y, 0.5, "circle", Color.LIGHTGRAY));
+                    backgroundElements.add(new BackgroundElement(x, y, 0.7, "circle", Color.LIGHTGRAY));
                     backgroundColor = Color.DARKGRAY;
 
                 }

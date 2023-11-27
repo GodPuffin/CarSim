@@ -86,7 +86,7 @@ public class SimController {
         // Update UI elements
         throttleBar.setProgress(car.inputs.throttle);
         rpmBar.setProgress(1000);
-        gearLabel.setText(String.valueOf(car.torque));
+        gearLabel.setText(String.valueOf(car.force.magnitude()));
 
         // Update graphs
         xAccelGraph.update(car.acceleration_wc.x, deltaTime);

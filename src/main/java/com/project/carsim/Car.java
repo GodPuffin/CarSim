@@ -7,6 +7,7 @@ import java.util.Set;
 
 public class Car {
 
+    private static final double SPEED_THRESHOLD = 4;
     DecimalFormat df = new DecimalFormat("#.##");
 
     double enginePower;
@@ -62,10 +63,10 @@ public class Car {
         this.wheellength = 0.7;
         this.wheelwidth = 0.3;
 
-        this.position = new Vector();
+        this.position = new Vector(600, 450);
         this.velocity_wc = new Vector();
 
-        this.angle = Math.PI / 2;
+        this.angle = Math.PI / 4;
         this.angularvelocity = 0;
 
         inputs = new Inputs();
@@ -103,21 +104,21 @@ public class Car {
         //
         yawspeed = this.wheelbase * 0.5 * this.angularvelocity;
 
-        if (velocity.x <= 0)
-            rot_angle = 0;
-        else
-            rot_angle = Math.atan2(yawspeed, velocity.x);
-        // Calculate the side slip angle of the car (a.k.a. beta)
-        if (velocity.x == 0)
-            sideslip = 0;
-        else
-            sideslip = Math.atan2(velocity.y, velocity.x);
-
-        // Calculate slip angles for front and rear wheels (a.k.a. alpha)
-        slipanglefront = sideslip + rot_angle - this.inputs.steeringAngle;
-        slipanglerear = sideslip - rot_angle;
-
-        sliding = (Math.abs(sideslip) >= 0.7);
+        double speed = velocity.magnitude();
+        if (speed < SPEED_THRESHOLD) {
+            // Below speed threshold, simplifying the calculations
+            slipanglefront = 0;
+            slipanglerear = 0;
+            sliding = false;
+        } else {
+            // Existing calculations for slip angles
+            yawspeed = this.wheelbase * 0.5 * this.angularvelocity;
+            rot_angle = speed == 0 ? 0 : Math.atan2(yawspeed, speed);
+            sideslip = speed == 0 ? 0 : Math.atan2(velocity.y, speed);
+            slipanglefront = sideslip + rot_angle - this.inputs.steeringAngle;
+            slipanglerear = sideslip - rot_angle;
+            sliding = (Math.abs(sideslip) >= 0.7);
+        }
 
         // weight per axle = half car mass times 1G (=9.8m/s^2)
         weight = this.mass * 9.8 * 0.5;
@@ -153,13 +154,13 @@ public class Car {
             resistance.y = -(Constants.RESISTANCE * velocity.y + Constants.DRAG * velocity.y * Math.abs(velocity.y));
 
             // sum forces
-            force.x = ftraction.x + Math.sin(this.inputs.steeringAngle) * flatf.x + flatr.x + resistance.x;
-            force.y = ftraction.y + Math.cos(this.inputs.steeringAngle) * flatf.y + flatr.y + resistance.y;
+            force.x = Double.valueOf(df.format(ftraction.x + Math.sin(this.inputs.steeringAngle) * flatf.x + flatr.x + resistance.x));
+            force.y = Double.valueOf(df.format(ftraction.y + Math.cos(this.inputs.steeringAngle) * flatf.y + flatr.y + resistance.y));
         }
 
 
         // torque on body from lateral forces
-        torque = this.b * flatf.y - this.c * flatr.y;
+        torque = speed > SPEED_THRESHOLD ? this.b * flatf.y - this.c * flatr.y : velocity.magnitude() * inputs.steeringAngle * 1000;
 
 // Acceleration
 
@@ -194,6 +195,12 @@ public class Car {
         //
         this.angle += dt * this.angularvelocity;
 
+        // Low speed fix
+        if (speed < SPEED_THRESHOLD) {
+            this.angularvelocity *= 0.9;
+            this.velocity_wc.x *= 0.99;
+            this.velocity_wc.y *= 0.99;
+        }
 
         inputs.update(activeKeys);
     }
@@ -204,12 +211,12 @@ public class Car {
         inputs.reset();
 
 //        resets movement
-        position = new Vector();
+        position = new Vector(600, 450);
         velocity_wc = new Vector();
         acceleration_wc = new Vector();
 
 //        resets rotation
-        angle = 0;
+        angle = Math.PI / 4;
         angularvelocity = 0;
         angular_acceleration = 0;
 

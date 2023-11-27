@@ -29,6 +29,7 @@ public class Grapher {
 
     public void update(double value, double deltaTime) {
 
+        // Update the bounds of the y axis if necessary
         if (value > yAxis.getUpperBound()) {
             yAxis.setUpperBound(value);
         }

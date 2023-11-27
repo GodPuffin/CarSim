@@ -70,14 +70,12 @@ public class Inputs {
                 currentGear++;
                 framesSinceLastShift = 0;
             }
-            System.out.println(currentGear);
         }
         if (activeKeys.contains(KeyCode.Z)) {
             if (currentGear > -1 && canShift()) {
                 currentGear--;
                 framesSinceLastShift = 0;
             }
-            System.out.println(currentGear);
         }
         framesSinceLastShift++;
         updateSteeringAngle(deltaAngle);
