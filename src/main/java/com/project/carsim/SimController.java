@@ -73,8 +73,9 @@ public class SimController {
 
         // Update UI elements
         throttleBar.setProgress(car.inputs.throttle);
-        rpmBar.setProgress(car.engine.rpm/6000);
-        gearLabel.setText("Current Gear: " + car.inputs.currentGear);
+        rpmBar.setProgress(1000);
+//        gearLabel.setText("Current Gear: " + car.inputs.currentGear);
+        gearLabel.setText(String.valueOf(car.force.x));
 
         // Update graphs
         xAccelGraph.update(car.acceleration_wc.x, deltaTime);

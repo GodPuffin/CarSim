@@ -23,8 +23,7 @@ public class Car {
     double angularvelocity;
 
     Inputs inputs;
-    Engine engine;
-    Drivetrain drivetrain;
+    Wheel wheels;
 
     Vector velocity;
     Vector acceleration_wc;
@@ -43,7 +42,6 @@ public class Car {
     Vector ftraction;
     Vector flatf, flatr;
     Vector fdrive;
-    Wheel wheels;
 
 
     public Car() {
@@ -66,8 +64,6 @@ public class Car {
         this.angularvelocity = 0;
 
         inputs = new Inputs();
-        engine = new Engine();
-        drivetrain = new Drivetrain();
         wheels = new Wheel();
 
         velocity = new Vector();
@@ -84,10 +80,6 @@ public class Car {
     }
 
     public void update(double dt, Set<KeyCode> activeKeys, Surface surface) {
-
-// Update Engine Torque
-        engine.update();
-
 
         sn = Math.sin(this.angle);
         cs = Math.cos(this.angle);
@@ -106,24 +98,21 @@ public class Car {
         //
         yawspeed = this.wheelbase * 0.5 * this.angularvelocity;
 
-        if (velocity.x == 0) {        // TODO: fix singularity
+        if( velocity.x == 0 )
             rot_angle = 0;
-        } else {
-            rot_angle = Math.atan2(yawspeed, velocity.x);
-        }
-
-        // Calculate the side-slip angle of the car (a.k.a. beta)
-        if (velocity.x == 0) {       // TODO: fix singularity
+        else
+            rot_angle = Math.atan( yawspeed / velocity.x);
+        // Calculate the side slip angle of the car (a.k.a. beta)
+        if( velocity.x == 0 )
             sideslip = 0;
-        } else {
-            sideslip = Math.atan2(velocity.y, velocity.x);
-        }
+        else
+            sideslip = Math.atan( velocity.y / velocity.x);
 
         // Calculate slip angles for front and rear wheels (a.k.a. alpha)
         slipanglefront = sideslip + rot_angle - this.inputs.steeringAngle;
         slipanglerear = sideslip - rot_angle;
 
-        sliding = (Math.abs(sideslip)>=0.7);
+        sliding = (Math.abs(sideslip) >= 0.7);
 
         // weight per axle = half car mass times 1G (=9.8m/s^2)
         weight = this.mass * 9.8 * 0.5;
@@ -142,15 +131,8 @@ public class Car {
         flatr.y = Math.max(-surface.getFriction(), flatr.y);
         flatr.y *= weight;
 
-        double engineActualTorque = (engine.maxTorque * (this.inputs.throttle - this.inputs.brake * Math.signum(velocity.x)));
-
-        // longitudinal force on rear wheels - very simple traction model
-        ftraction.x = (this.h/this.wheelbase)*this.mass*engineActualTorque;
+        ftraction.x = 10000*(this.inputs.throttle - this.inputs.brake*Math.signum(velocity.x));
         ftraction.y = 0;
-
-        fdrive.x = (engineActualTorque * drivetrain.transmissionRatio[inputs.currentGear + 1] * drivetrain.differentialRatio * drivetrain.transmissionEfficiency) / (wheels.radius);
-        fdrive.y = 0;
-
 
 // Forces and torque on body
 
@@ -159,8 +141,8 @@ public class Car {
         resistance.y = -(Constants.RESISTANCE * velocity.y + Constants.DRAG * velocity.y * Math.abs(velocity.y));
 
         // sum forces
-        force.x = ftraction.x + Math.sin(this.inputs.steeringAngle) * flatf.x + flatr.x + resistance.x + fdrive.x;
-        force.y = ftraction.y + Math.cos(this.inputs.steeringAngle) * flatf.y + flatr.y + resistance.y + fdrive.y;
+        force.x = ftraction.x + Math.sin(this.inputs.steeringAngle) * flatf.x + flatr.x + resistance.x;
+        force.y = ftraction.y + Math.cos(this.inputs.steeringAngle) * flatf.y + flatr.y + resistance.y;
 
         // torque on body from lateral forces
         torque = this.b * flatf.y - this.c * flatr.y;
@@ -170,7 +152,6 @@ public class Car {
         // Newton F = m.a, therefore a = F/m
         acceleration.x = force.x / this.mass;
         acceleration.y = force.y / this.mass;
-
         angular_acceleration = torque / this.inertia;
 
 // Velocity and position
@@ -217,6 +198,8 @@ public class Car {
         angle = 0;
         angularvelocity = 0;
         angular_acceleration = 0;
+
+        wheels.reset();
 
     }
 }
