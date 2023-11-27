@@ -45,17 +45,15 @@ public class Inputs {
         return framesSinceLastShift >= 16;
     }
 
-    public void update(Car car, Set<KeyCode> activeKeys) {
+    public void update(Set<KeyCode> activeKeys) {
         double deltaAngle = 0;
         brake = 0;
-        if (car.velocity.magnitude() > 0.01) {
             if (activeKeys.contains(KeyCode.LEFT)) {
                 deltaAngle = -0.1;
             }
             if (activeKeys.contains(KeyCode.RIGHT)) {
                 deltaAngle = 0.1;
             }
-        }
         if (activeKeys.contains(KeyCode.UP)) {
             if (throttle < 1) {
                 throttle += 0.05;

@@ -65,7 +65,7 @@ public class Car {
         this.position = new Vector();
         this.velocity_wc = new Vector();
 
-        this.angle = 0;
+        this.angle = Math.PI / 2;
         this.angularvelocity = 0;
 
         inputs = new Inputs();
@@ -137,7 +137,7 @@ public class Car {
         flatr.y *= weight;
 
 
-        if (this.inputs.brake == 1 && (Math.abs(velocity.x) <= 0.1)) {
+        if (this.inputs.brake == 1 && (Math.abs(velocity.magnitude()) <= 0.1)) {
             velocity.x = 0;
             ftraction.x = 0;
             resistance.x = 0;
@@ -195,7 +195,7 @@ public class Car {
         this.angle += dt * this.angularvelocity;
 
 
-        inputs.update(this, activeKeys);
+        inputs.update(activeKeys);
     }
 
     public void reset() {
