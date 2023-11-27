@@ -136,29 +136,27 @@ public class Car {
         flatr.y = Math.max(-surface.getFriction(), flatr.y);
         flatr.y *= weight;
 
-        if (this.inputs.brake == 1) {
-            if (Math.abs(velocity.x) <= 0.01) {
-                velocity.x = 0;
-                ftraction.x = 0;
-            } else {
-                ftraction.x = enginePower * (this.inputs.throttle - this.inputs.brake * Math.signum(velocity.x));
-            }
+
+        if (this.inputs.brake == 1 && (Math.abs(velocity.x) <= 0.1)) {
+            velocity.x = 0;
+            ftraction.x = 0;
+            resistance.x = 0;
+            resistance.y = 0;
+            force.x = 0;
+            force.y = 0;
         } else {
-
             ftraction.x = enginePower * (this.inputs.throttle - this.inputs.brake * Math.signum(velocity.x));
+            ftraction.y = 0;
 
+            // drag and rolling resistance
+            resistance.x = -(Constants.RESISTANCE * velocity.x + Constants.DRAG * velocity.x * Math.abs(velocity.x));
+            resistance.y = -(Constants.RESISTANCE * velocity.y + Constants.DRAG * velocity.y * Math.abs(velocity.y));
+
+            // sum forces
+            force.x = ftraction.x + Math.sin(this.inputs.steeringAngle) * flatf.x + flatr.x + resistance.x;
+            force.y = ftraction.y + Math.cos(this.inputs.steeringAngle) * flatf.y + flatr.y + resistance.y;
         }
-        ftraction.y = 0;
 
-// Forces and torque on body
-
-        // drag and rolling resistance
-        resistance.x = -(Constants.RESISTANCE * velocity.x + Constants.DRAG * velocity.x * Math.abs(velocity.x));
-        resistance.y = -(Constants.RESISTANCE * velocity.y + Constants.DRAG * velocity.y * Math.abs(velocity.y));
-
-        // sum forces
-        force.x = ftraction.x + Math.sin(this.inputs.steeringAngle) * flatf.x + flatr.x + resistance.x;
-        force.y = ftraction.y + Math.cos(this.inputs.steeringAngle) * flatf.y + flatr.y + resistance.y;
 
         // torque on body from lateral forces
         torque = this.b * flatf.y - this.c * flatr.y;
@@ -197,7 +195,7 @@ public class Car {
         this.angle += dt * this.angularvelocity;
 
 
-        inputs.update(activeKeys);
+        inputs.update(this, activeKeys);
     }
 
     public void reset() {
