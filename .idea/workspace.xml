@@ -5,9 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c92963a1-2c26-4c59-8d27-dd8761509578" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/project/carsim/VectorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Wheel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Grapher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Grapher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/GraphicsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/GraphicsHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Inputs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Inputs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Surface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Surface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Vector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +29,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -41,17 +53,27 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.project.carsim" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.SimApplication">
     <configuration name="SimApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.project.carsim.SimApplication" />
       <module name="CarSim" />
@@ -65,9 +87,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="VectorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CarSim" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.project.carsim.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.project.carsim" />
+      <option name="MAIN_CLASS_NAME" value="com.project.carsim.VectorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.SimApplication" />
+        <item itemvalue="JUnit.VectorTest" />
       </list>
     </recent_temporary>
   </component>
@@ -103,5 +141,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

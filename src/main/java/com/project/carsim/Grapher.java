@@ -3,6 +3,10 @@ package com.project.carsim;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
+/**
+ * Grapher class for graphing data
+ * @author Marcus
+ */
 public class Grapher {
     private final XYChart.Series<Number, Number> series;
     private final NumberAxis xAxis;
@@ -10,6 +14,11 @@ public class Grapher {
     private double currentTime = 0.0;
     private final double updateInterval = 1.0 / 60.0;
 
+    /**
+     * Constructor for Grapher
+     * @param chart Chart to graph on
+     * @param color Color of series
+     */
     public Grapher(XYChart<Number, Number> chart, String color) {
         // Create a new series for the chart
         series = new XYChart.Series<>();
@@ -27,6 +36,11 @@ public class Grapher {
         series.getNode().setStyle("-fx-stroke: " + color + ";");
     }
 
+    /**
+     * Updates the graph
+     * @param value Value to graph
+     * @param deltaTime Time since last update
+     */
     public void update(double value, double deltaTime) {
 
         // Update the bounds of the y axis if necessary

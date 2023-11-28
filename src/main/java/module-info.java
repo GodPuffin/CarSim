@@ -1,3 +1,6 @@
+/**
+ * Main module for the simulation
+ */
 module com.project.carsim {
     requires javafx.controls;
     requires javafx.fxml;

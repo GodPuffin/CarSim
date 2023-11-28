@@ -5,20 +5,22 @@ import javafx.scene.input.KeyCode;
 import java.text.DecimalFormat;
 import java.util.Set;
 
+/**
+ * Car class
+ * @author Philip
+ */
 public class Car {
 
     private static final double SPEED_THRESHOLD = 4;
-    private DecimalFormat df = new DecimalFormat("#.##");
-
+    private final DecimalFormat df = new DecimalFormat("#.##");
     private double enginePower;
-    private double wheelbase;        // wheelbase in m
-    private double b;                // in m, distance from CG to front axle
-    private double c;                // in m, distance from CG to rear axle
-    private double h;                // in m, height of CM from ground
+    private final double wheelbase;        // wheelbase in m
+    private final double b;                // in m, distance from CG to front axle
+    private final double c;                // in m, distance from CG to rear axle
     private double mass;             // in kg
     private double inertia;          // in kg.m
-    private double length, width;
-    private double wheellength, wheelwidth;
+    private final double length, width;
+    private final double wheellength, wheelwidth;
     private boolean sliding;
 
     private Vector position;         // position of car centre in world coordinates
@@ -27,34 +29,35 @@ public class Car {
     private double angle;            // angle of car body orientation (in rads)
     private double angularvelocity;
 
-    private Inputs inputs;
+    private final Inputs inputs;
 
-    private Vector velocity;
+    private final Vector velocity;
     private Vector acceleration_wc;
     private double rot_angle;
     private double sideslip;
     private double slipanglefront;
     private double slipanglerear;
-    private Vector force;
-    private Vector resistance;
-    private Vector acceleration;
+    private final Vector force;
+    private final Vector resistance;
+    private final Vector acceleration;
     private double torque;
     private double angular_acceleration;
     private double sn, cs;
     private double yawspeed;
     private double weight;
-    private Vector ftraction;
-    private Vector flatf, flatr;
-    private Vector fdrive;
+    private final Vector ftraction;
+    private final Vector flatf;
+    private final Vector flatr;
 
-
+    /**
+     * Constructor for Car class
+     */
     public Car() {
 
         enginePower = 10000;
         this.b = 2.0;                     // m
         this.c = 2.0;                     // m
         this.wheelbase = this.b + this.c; // m
-        this.h = 1.0;                     // m
         this.mass = 1500;                 // kg
         this.inertia = 1500;              // kg.m
         this.width = 2;                 // m
@@ -78,11 +81,14 @@ public class Car {
         ftraction = new Vector();
         flatf = new Vector();
         flatr = new Vector();
-        fdrive = new Vector();
-
-
     }
 
+    /**
+     * Updates the car's physics
+     * @param dt time step
+     * @param activeKeys set of active keys
+     * @param surface surface type
+     */
     public void update(double dt, Set<KeyCode> activeKeys, Surface surface) {
 
         sn = Math.sin(this.angle);
@@ -186,23 +192,23 @@ public class Car {
 // Angular velocity and heading
 
         // integrate angular acceleration to get angular velocity
-        //
         this.angularvelocity += dt * angular_acceleration;
 
         // integrate angular velocity to get angular orientation
-        //
         this.angle += dt * this.angularvelocity;
 
         // Low speed fix
         if (speed < SPEED_THRESHOLD) {
             this.angularvelocity *= 0.9;
-            this.velocity_wc.x *= 0.99;
-            this.velocity_wc.y *= 0.99;
+            this.velocity_wc.multiply(0.99);
         }
 
         inputs.update(activeKeys);
     }
 
+    /**
+     * Resets the car's physics
+     */
     public void reset() {
 
 //        reset inputs
@@ -220,66 +226,130 @@ public class Car {
 
     }
 
+    /**
+     * Sets the car's engine power
+     * @param enginePower engine power
+     */
     public void setEnginePower(double enginePower) {
         this.enginePower = enginePower;
     }
 
+    /**
+     * Sets the car's mass
+     * @param mass mass
+     */
     public void setMass(double mass) {
         this.mass = mass;
     }
 
+    /**
+     * Sets the car's inertia
+     * @param inertia inertia
+     */
     public void setInertia(double inertia) {
         this.inertia = inertia;
     }
 
+    /**
+     * Sets the car's weight
+     * @param weight weight
+     */
     public void setWeight(double weight) {
         this.weight = weight;
     }
 
+    /**
+     * Gets the car's length
+     * @return car length
+     */
     public double getLength() {
         return length;
     }
 
+    /**
+     * Gets the car's width
+     * @return car width
+     */
     public double getWidth() {
         return width;
     }
 
+    /**
+     * Gets the car's wheel length
+     * @return wheel length
+     */
     public double getWheellength() {
         return wheellength;
     }
 
+    /**
+     * Gets the car's wheel width
+     * @return wheel width
+     */
     public double getWheelwidth() {
         return wheelwidth;
     }
 
+    /**
+     * Returns whether the car is sliding
+     * @return whether the car is sliding
+     */
     public boolean isSliding() {
         return sliding;
     }
 
+    /**
+     * Gets the car's position
+     * @return car position
+     */
     public Vector getPosition() {
         return position;
     }
 
+    /**
+     * Gets the car's velocity in world coordinates
+     * @return car velocity in world coordinates
+     */
     public Vector getVelocity_wc() {
         return velocity_wc;
     }
 
+    /**
+     * Gets the car's angle
+     * @return car angle
+     */
     public double getAngle() {
         return angle;
     }
 
+    /**
+     * Gets the car's acceleration in world coordinates
+     * @return car acceleration in world coordinates
+     */
     public Vector getAcceleration_wc() {
         return acceleration_wc;
     }
 
+    /**
+     * Gets the car's throttle
+     * @return car throttle
+     */
     public double getThrottle() {
         return this.inputs.getThrottle();
     }
 
+    /**
+     * Gets the car's brake
+     * @return car brake
+     */
     public double getBrake() {
         return this.inputs.getBrake();
     }
 
+    /**
+     * Gets the car's steering angle
+     * @return car steering angle
+     */
     public double getSteeringAngle() {
         return this.inputs.getSteeringAngle();
     }

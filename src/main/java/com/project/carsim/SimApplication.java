@@ -13,14 +13,30 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Main class for the simulation
+
+ */
 public class SimApplication extends Application {
 
     private long lastFrameTime;
 
+    /**
+     * Main method
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
         launch();
     }
 
+    /**
+     * Starts the application
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     * @throws IOException if an error occurs during loading
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SimApplication.class.getResource("sim-view.fxml"));

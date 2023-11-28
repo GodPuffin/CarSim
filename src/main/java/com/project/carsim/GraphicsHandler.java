@@ -10,9 +10,20 @@ import javafx.scene.transform.Rotate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles all graphics for the simulation
+ * @author Marcus
+ */
 public class GraphicsHandler {
 
+    /**
+     * Width of the canvas
+     */
     public final double WIDTH;
+
+    /**
+     * Height of the canvas
+     */
     public final double HEIGHT;
     private final Canvas backgroundCanvas;
     private final Canvas dynamicCanvas;
@@ -26,7 +37,12 @@ public class GraphicsHandler {
     private List<BackgroundElement> skidMarks = new ArrayList<>();
     private Color backgroundColor = Color.BLACK;
 
-    // Constructor
+    /**
+     * Constructor
+     * @param canvasContainer The pane to add the canvases to
+     * @param width Width of the canvas
+     * @param height Height of the canvas
+     */
     public GraphicsHandler(Pane canvasContainer, double width, double height) {
         this.WIDTH = width;
         this.HEIGHT = height;
@@ -43,6 +59,11 @@ public class GraphicsHandler {
         canvasContainer.getChildren().addAll(backgroundCanvas, dynamicCanvas);
     }
 
+    /**
+     * Update the graphics
+     * @param car The car to draw
+     * @param surface The surface to draw
+     */
     public void update(Car car, Surface surface) {
 
         // Update background
@@ -101,9 +122,7 @@ public class GraphicsHandler {
 
         }
         if (skidMarks.size() > 2000) {
-            for (int i = 0; i < 4; i++) {
-                skidMarks.remove(0);
-            }
+            skidMarks.subList(0, 4).clear();
         }
 
         // Draw wheels
@@ -128,6 +147,10 @@ public class GraphicsHandler {
         dynGc.restore();
     }
 
+    /**
+     * Update the camera position
+     * @param car The car to follow
+     */
     private void updateCameraPosition(Car car) {
         // Desired position based on car's position
         double targetX = car.getPosition().x - (WIDTH / 2) / scaleFactor;
@@ -138,6 +161,13 @@ public class GraphicsHandler {
         cameraPosition.y += (targetY - cameraPosition.y) * cameraLag;
     }
 
+    /**
+     * Draw a wheel
+     * @param x position x
+     * @param y position y
+     * @param isFrontWheel true if the wheel is a front wheel
+     * @param car The car to draw the wheels on
+     */
     private void drawWheel(double x, double y, boolean isFrontWheel, Car car) {
         dynGc.save();
         // Rotate the wheel based on the steering angle
@@ -149,6 +179,10 @@ public class GraphicsHandler {
         dynGc.restore();
     }
 
+    /**
+     * Update the background
+     * @param surface The surface to draw
+     */
     private void updateBackground(Surface surface) {
 
         bgGc.save();
@@ -186,7 +220,10 @@ public class GraphicsHandler {
         bgGc.restore();
     }
 
-    // Generate background elements based on the surface
+    /**
+     * Generate background elements based on the surface
+     * @param surface The surface to generate elements for
+     */
     private void generateBackgroundElements(Surface surface) {
         switch (surface) {
             case ASPHALT:
@@ -220,11 +257,17 @@ public class GraphicsHandler {
         }
     }
 
+    /**
+     * Set the scale factor
+     * @param scaleFactor The scale factor
+     */
     public void setScaleFactor(double scaleFactor) {
         this.scaleFactor = scaleFactor;
     }
 
-    // Background elements class
+    /**
+     * A background element
+     */
     private static class BackgroundElement {
         double x;
         double y;
@@ -232,6 +275,14 @@ public class GraphicsHandler {
         Color color;
         String shape;
 
+        /**
+         * Constructor
+         * @param x position x
+         * @param y position y
+         * @param size size
+         * @param shape shape
+         * @param color color
+         */
         public BackgroundElement(double x, double y, double size, String shape, Color color) {
             this.x = x;
             this.y = y;

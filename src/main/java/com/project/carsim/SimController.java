@@ -1,6 +1,5 @@
 package com.project.carsim;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
@@ -9,6 +8,9 @@ import javafx.scene.layout.Pane;
 
 import java.util.Set;
 
+/**
+ * Controller class for the simulation
+ */
 public class SimController {
 
     // FXML elements
@@ -19,8 +21,6 @@ public class SimController {
     @FXML
     private ComboBox<String> surfaceComboBox;
     @FXML
-    private Button resetButton;
-    @FXML
     private Slider scaleSlider, engineSlider, weightSlider;
 
     // Other variables
@@ -29,7 +29,9 @@ public class SimController {
     private Car car;
     private Grapher xAccelGraph, yAccelGraph, xVelocGraph, yVelocGraph, spdGraph, throttleGraph;
 
-    // Initialization
+    /**
+     * Initializes the controller
+     */
     @FXML
     public void initialize() {
         // Initialize graphics handler
@@ -71,6 +73,12 @@ public class SimController {
         throttleGraph = new Grapher(throttleChart, "pink");
     }
 
+    /**
+     * Updates the simulation
+     * @param deltaTime Time since last update
+     * @param activeKeys Set of active keys
+     * @param car Car object
+     */
     public void update(double deltaTime, Set<KeyCode> activeKeys, Car car) {
 
         // Update car and graphics
@@ -87,8 +95,10 @@ public class SimController {
         throttleGraph.update(car.getThrottle(), deltaTime);
     }
 
-    // Event handlers
-    public void SurfaceSelected(ActionEvent actionEvent) {
+    /**
+     * Called when a new surface is selected
+     */
+    public void SurfaceSelected() {
         switch (surfaceComboBox.getValue()) {
             case "Asphalt":
                 surface = Surface.ASPHALT;
@@ -102,11 +112,17 @@ public class SimController {
         }
     }
 
-    public void resetPressed(ActionEvent actionEvent) {
+    /**
+     * Called when the reset button is pressed
+     */
+    public void resetPressed() {
         car.reset();
     }
 
-    public void exitPressed(ActionEvent actionEvent) {
+    /**
+     * Called when the exit button is pressed
+     */
+    public void exitPressed() {
         System.exit(0);
     }
 }
