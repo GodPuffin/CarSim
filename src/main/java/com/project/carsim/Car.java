@@ -115,7 +115,7 @@ public class Car {
             yawspeed = this.wheelbase * 0.5 * this.angularvelocity;
             rot_angle = speed == 0 ? 0 : Math.atan2(yawspeed, speed);
             sideslip = speed == 0 ? 0 : Math.atan2(velocity.y, speed);
-            slipanglefront = sideslip + rot_angle - this.inputs.steeringAngle;
+            slipanglefront = sideslip + rot_angle - this.inputs.getSteeringAngle();
             slipanglerear = sideslip - rot_angle;
             sliding = (Math.abs(sideslip) >= 0.7);
         }
@@ -138,7 +138,7 @@ public class Car {
         flatr.y *= weight;
 
 
-        if (this.inputs.brake == 1 && (Math.abs(velocity.magnitude()) <= 0.1)) {
+        if (this.inputs.getBrake() == 1 && (Math.abs(velocity.magnitude()) <= 0.1)) {
             velocity.x = 0;
             ftraction.x = 0;
             resistance.x = 0;
@@ -146,7 +146,7 @@ public class Car {
             force.x = 0;
             force.y = 0;
         } else {
-            ftraction.x = enginePower * (this.inputs.throttle - this.inputs.brake * Math.signum(velocity.x));
+            ftraction.x = enginePower * (this.inputs.getThrottle() - this.inputs.getBrake() * Math.signum(velocity.x));
             ftraction.y = 0;
 
             // drag and rolling resistance
@@ -154,13 +154,13 @@ public class Car {
             resistance.y = -(Constants.RESISTANCE * velocity.y + Constants.DRAG * velocity.y * Math.abs(velocity.y));
 
             // sum forces
-            force.x = Double.parseDouble(df.format(ftraction.x + Math.sin(this.inputs.steeringAngle) * flatf.x + flatr.x + resistance.x));
-            force.y = Double.parseDouble(df.format(ftraction.y + Math.cos(this.inputs.steeringAngle) * flatf.y + flatr.y + resistance.y));
+            force.x = Double.parseDouble(df.format(ftraction.x + Math.sin(this.inputs.getSteeringAngle()) * flatf.x + flatr.x + resistance.x));
+            force.y = Double.parseDouble(df.format(ftraction.y + Math.cos(this.inputs.getSteeringAngle()) * flatf.y + flatr.y + resistance.y));
         }
 
 
         // torque on body from lateral forces
-        torque = speed > SPEED_THRESHOLD ? this.b * flatf.y - this.c * flatr.y : velocity.magnitude() * inputs.steeringAngle * 1000;
+        torque = speed > SPEED_THRESHOLD ? this.b * flatf.y - this.c * flatr.y : velocity.magnitude() * inputs.getSteeringAngle() * 1000;
 
 // Acceleration
 
