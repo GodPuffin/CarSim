@@ -154,8 +154,8 @@ public class Car {
             resistance.y = -(Constants.RESISTANCE * velocity.y + Constants.DRAG * velocity.y * Math.abs(velocity.y));
 
             // sum forces
-            force.x = Double.valueOf(df.format(ftraction.x + Math.sin(this.inputs.steeringAngle) * flatf.x + flatr.x + resistance.x));
-            force.y = Double.valueOf(df.format(ftraction.y + Math.cos(this.inputs.steeringAngle) * flatf.y + flatr.y + resistance.y));
+            force.x = Double.parseDouble(df.format(ftraction.x + Math.sin(this.inputs.steeringAngle) * flatf.x + flatr.x + resistance.x));
+            force.y = Double.parseDouble(df.format(ftraction.y + Math.cos(this.inputs.steeringAngle) * flatf.y + flatr.y + resistance.y));
         }
 
 

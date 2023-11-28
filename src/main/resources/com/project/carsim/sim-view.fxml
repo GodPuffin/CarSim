@@ -124,29 +124,14 @@
                           <NumberAxis animated="false" autoRanging="false" side="LEFT" />
                       </yAxis>
                   </LineChart>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <children>
-                        <Label text="Throttle %" />
-                        <ProgressBar fx:id="throttleBar" prefWidth="190.0" progress="0.0">
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                        </ProgressBar>
-                        <Label text="RPM" />
-                        <ProgressBar fx:id="rpmBar" prefWidth="190.0" progress="0.0">
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                        </ProgressBar>
-                        <Label text="Torque" />
-                        <ProgressBar fx:id="torqueBar" prefWidth="190.0" progress="0.0">
-                         <VBox.margin>
-                             <Insets bottom="10.0" />
-                         </VBox.margin>
-                        </ProgressBar>
-                         <Label fx:id="gearLabel" text="Current Gear:" />
-                     </children>
-                  </VBox>
+                   <LineChart fx:id="throttleChart" createSymbols="false" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" title="Throttle" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                       <xAxis>
+                           <NumberAxis animated="false" autoRanging="false" side="BOTTOM" tickLabelsVisible="false" />
+                       </xAxis>
+                       <yAxis>
+                           <NumberAxis animated="false" autoRanging="false" side="LEFT" />
+                       </yAxis>
+                   </LineChart>
                </children>
             </GridPane>
          </children>

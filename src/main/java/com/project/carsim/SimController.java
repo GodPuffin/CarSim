@@ -13,9 +13,7 @@ public class SimController {
 
     // FXML elements
     @FXML
-    private Label gearLabel;
-    @FXML
-    private LineChart xAccelChart, yAccelChart, xVelocChart, yVelocChart, spdChart;
+    private LineChart xAccelChart, yAccelChart, xVelocChart, yVelocChart, spdChart, throttleChart;
     @FXML
     private Pane mainCanvas;
     @FXML
@@ -24,16 +22,12 @@ public class SimController {
     private Button resetButton;
     @FXML
     private Slider scaleSlider, engineSlider, weightSlider;
-    @FXML
-    private ProgressBar throttleBar;
-    @FXML
-    private ProgressBar rpmBar;
 
     // Other variables
     private GraphicsHandler graphicsHandler;
     private Surface surface;
     private Car car;
-    private Grapher xAccelGraph, yAccelGraph, xVelocGraph, yVelocGraph, spdGraph;
+    private Grapher xAccelGraph, yAccelGraph, xVelocGraph, yVelocGraph, spdGraph, throttleGraph;
 
     // Initialization
     @FXML
@@ -74,6 +68,7 @@ public class SimController {
         xVelocGraph = new Grapher(xVelocChart, "blue");
         yVelocGraph = new Grapher(yVelocChart, "red");
         spdGraph = new Grapher(spdChart, "green");
+        throttleGraph = new Grapher(throttleChart, "pink");
     }
 
     public void update(double deltaTime, Set<KeyCode> activeKeys, Car car) {
@@ -83,17 +78,13 @@ public class SimController {
         car.update(deltaTime, activeKeys, surface);
         graphicsHandler.update(car, surface);
 
-        // Update UI elements
-        throttleBar.setProgress(car.inputs.throttle);
-        rpmBar.setProgress(1000);
-        gearLabel.setText(String.valueOf(car.force.magnitude()));
-
         // Update graphs
         xAccelGraph.update(car.acceleration_wc.x, deltaTime);
         yAccelGraph.update(-car.acceleration_wc.y, deltaTime);
         xVelocGraph.update(car.velocity_wc.x, deltaTime);
         yVelocGraph.update(-car.velocity_wc.y, deltaTime);
         spdGraph.update(car.velocity_wc.magnitude(), deltaTime);
+        throttleGraph.update(car.inputs.throttle, deltaTime);
     }
 
     // Event handlers

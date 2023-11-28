@@ -8,9 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Grapher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Grapher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/GraphicsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/GraphicsHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Inputs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Inputs.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/project/carsim/sim-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/project/carsim/sim-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +88,7 @@
       <workItem from="1700930340776" duration="3142000" />
       <workItem from="1701090393128" duration="2190000" />
       <workItem from="1701096661257" duration="6809000" />
+      <workItem from="1701130177689" duration="1183000" />
     </task>
     <servers />
   </component>

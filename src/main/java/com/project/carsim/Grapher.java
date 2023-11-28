@@ -20,8 +20,8 @@ public class Grapher {
         yAxis = (NumberAxis) chart.getYAxis();
 
         // Set the bounds
-        yAxis.setLowerBound(-1);
-        yAxis.setUpperBound(1);
+        yAxis.setLowerBound(-0.25);
+        yAxis.setUpperBound(1.25);
 
         // Set the color
         series.getNode().setStyle("-fx-stroke: " + color + ";");
