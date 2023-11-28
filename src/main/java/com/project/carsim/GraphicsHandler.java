@@ -193,6 +193,7 @@ public class GraphicsHandler {
 
         // Generate background elements if the surface has changed
         if (surface != previousSurface) {
+            clearSkidmarks();
             backgroundElements.clear();
             generateBackgroundElements(surface);
             previousSurface = surface;
@@ -290,5 +291,12 @@ public class GraphicsHandler {
             this.color = color;
             this.shape = shape;
         }
+    }
+
+    /**
+     * Clears skidmarks on surface
+     */
+    public void clearSkidmarks() {
+        skidMarks.clear();
     }
 }

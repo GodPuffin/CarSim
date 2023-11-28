@@ -116,6 +116,11 @@ public class SimController {
      * Called when the reset button is pressed
      */
     public void resetPressed() {
+        scaleSlider.setValue(5);
+        weightSlider.setValue(1500);
+        engineSlider.setValue(15000);
+        graphicsHandler.clearSkidmarks();
+        surfaceComboBox.setValue("Asphalt");
         car.reset();
     }
 
