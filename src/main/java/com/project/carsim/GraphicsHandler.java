@@ -64,40 +64,40 @@ public class GraphicsHandler {
         bgGc.translate(-cameraPosition.x * scaleFactor, -cameraPosition.y * scaleFactor);
 
         // Rotate the car to face the direction it is heading
-        dynGc.transform(new Affine(new Rotate(Math.toDegrees(car.angle), car.position.x, car.position.y)));
+        dynGc.transform(new Affine(new Rotate(Math.toDegrees(car.getAngle()), car.getPosition().x, car.getPosition().y)));
 
-        if (car.sliding) {
+        if (car.isSliding()) {
             // Calculate skid mark position for each wheel
-            double distanceFromCenterX = car.length / 2;
-            double distanceFromCenterY = car.width / 2;
+            double distanceFromCenterX = car.getLength() / 2;
+            double distanceFromCenterY = car.getWidth() / 2;
 
-            double sn = Math.sin(car.angle);
-            double cs = Math.cos(car.angle);
+            double sn = Math.sin(car.getAngle());
+            double cs = Math.cos(car.getAngle());
 
 
             double offsetX = (cs * distanceFromCenterX - sn * distanceFromCenterY);
             double offsetY = (sn * distanceFromCenterX + cs * distanceFromCenterY);
-            double skidMarkX = car.position.x + offsetX;
-            double skidMarkY = car.position.y + offsetY;
-            skidMarks.add(new BackgroundElement(skidMarkX, skidMarkY, car.wheelwidth, "circle", Color.BLACK));
+            double skidMarkX = car.getPosition().x + offsetX;
+            double skidMarkY = car.getPosition().y + offsetY;
+            skidMarks.add(new BackgroundElement(skidMarkX, skidMarkY, car.getWheelwidth(), "circle", Color.BLACK));
 
             offsetX = -(cs * distanceFromCenterX - sn * distanceFromCenterY);
             offsetY = -(sn * distanceFromCenterX + cs * distanceFromCenterY);
-            skidMarkX = car.position.x + offsetX;
-            skidMarkY = car.position.y + offsetY;
-            skidMarks.add(new BackgroundElement(skidMarkX, skidMarkY, car.wheelwidth, "circle", Color.BLACK));
+            skidMarkX = car.getPosition().x + offsetX;
+            skidMarkY = car.getPosition().y + offsetY;
+            skidMarks.add(new BackgroundElement(skidMarkX, skidMarkY, car.getWheelwidth(), "circle", Color.BLACK));
 
             offsetX = -(cs * distanceFromCenterX + sn * distanceFromCenterY);
             offsetY = -(sn * distanceFromCenterX - cs * distanceFromCenterY);
-            skidMarkX = car.position.x + offsetX;
-            skidMarkY = car.position.y + offsetY;
-            skidMarks.add(new BackgroundElement(skidMarkX, skidMarkY, car.wheelwidth, "circle", Color.BLACK));
+            skidMarkX = car.getPosition().x + offsetX;
+            skidMarkY = car.getPosition().y + offsetY;
+            skidMarks.add(new BackgroundElement(skidMarkX, skidMarkY, car.getWheelwidth(), "circle", Color.BLACK));
 
             offsetX = (cs * distanceFromCenterX + sn * distanceFromCenterY);
             offsetY = (sn * distanceFromCenterX - cs * distanceFromCenterY);
-            skidMarkX = car.position.x + offsetX;
-            skidMarkY = car.position.y + offsetY;
-            skidMarks.add(new BackgroundElement(skidMarkX, skidMarkY, car.wheelwidth, "circle", Color.BLACK));
+            skidMarkX = car.getPosition().x + offsetX;
+            skidMarkY = car.getPosition().y + offsetY;
+            skidMarks.add(new BackgroundElement(skidMarkX, skidMarkY, car.getWheelwidth(), "circle", Color.BLACK));
 
         }
         if (skidMarks.size() > 2000) {
@@ -108,30 +108,30 @@ public class GraphicsHandler {
 
         // Draw wheels
         dynGc.setFill(Color.BLACK);
-        drawWheel(car.position.x - car.length / 2, car.position.y - car.width / 2, false, car);
-        drawWheel(car.position.x + car.length / 2, car.position.y - car.width / 2, true, car);
-        drawWheel(car.position.x - car.length / 2, car.position.y + car.width / 2, false, car);
-        drawWheel(car.position.x + car.length / 2, car.position.y + car.width / 2, true, car);
+        drawWheel(car.getPosition().x - car.getLength() / 2, car.getPosition().y - car.getWidth() / 2, false, car);
+        drawWheel(car.getPosition().x + car.getLength() / 2, car.getPosition().y - car.getWidth() / 2, true, car);
+        drawWheel(car.getPosition().x - car.getLength() / 2, car.getPosition().y + car.getWidth() / 2, false, car);
+        drawWheel(car.getPosition().x + car.getLength() / 2, car.getPosition().y + car.getWidth() / 2, true, car);
 
         // Draw car
         dynGc.setFill(Color.RED);
-        dynGc.fillRect(car.position.x - (car.length / 2) - (car.wheellength / 2) - 0.2, car.position.y - (car.width / 2), car.length + car.wheellength + 0.4, car.width);
+        dynGc.fillRect(car.getPosition().x - (car.getLength() / 2) - (car.getWheellength() / 2) - 0.2, car.getPosition().y - (car.getWidth() / 2), car.getLength() + car.getWheellength() + 0.4, car.getWidth());
 
         // Windshield
         dynGc.setFill(Color.ALICEBLUE);
-        dynGc.fillRect(car.position.x + (car.length / 2) - 0.7, car.position.y - (car.width / 2) + 0.2, 0.7, car.width - 0.4);
+        dynGc.fillRect(car.getPosition().x + (car.getLength() / 2) - 0.7, car.getPosition().y - (car.getWidth() / 2) + 0.2, 0.7, car.getWidth() - 0.4);
 
         // Spoiler
         dynGc.setFill(Color.DARKRED);
-        dynGc.fillRect(car.position.x - (car.length / 2) - (car.wheellength / 2) - 0.2, car.position.y - (car.width / 2) - 0.2, 0.8, car.width + 0.4);
+        dynGc.fillRect(car.getPosition().x - (car.getLength() / 2) - (car.getWheellength() / 2) - 0.2, car.getPosition().y - (car.getWidth() / 2) - 0.2, 0.8, car.getWidth() + 0.4);
 
         dynGc.restore();
     }
 
     private void updateCameraPosition(Car car) {
         // Desired position based on car's position
-        double targetX = car.position.x - (WIDTH / 2) / scaleFactor;
-        double targetY = car.position.y - (HEIGHT / 2) / scaleFactor;
+        double targetX = car.getPosition().x - (WIDTH / 2) / scaleFactor;
+        double targetY = car.getPosition().y - (HEIGHT / 2) / scaleFactor;
 
         // Interpolate between the current position and the target position
         cameraPosition.x += (targetX - cameraPosition.x) * cameraLag;
@@ -142,10 +142,10 @@ public class GraphicsHandler {
         dynGc.save();
         // Rotate the wheel based on the steering angle
         if (isFrontWheel) {
-            dynGc.transform(new Affine(new Rotate(Math.toDegrees(car.inputs.steeringAngle), x, y)));
+            dynGc.transform(new Affine(new Rotate(Math.toDegrees(car.getSteeringAngle()), x, y)));
         }
         // Draw the wheel
-        dynGc.fillRect(x - car.wheellength / 2, y - car.wheelwidth / 2, car.wheellength, car.wheelwidth);
+        dynGc.fillRect(x - car.getWheellength() / 2, y - car.getWheelwidth() / 2, car.getWheellength(), car.getWheelwidth());
         dynGc.restore();
     }
 
