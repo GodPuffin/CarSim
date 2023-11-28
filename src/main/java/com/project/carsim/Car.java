@@ -8,45 +8,45 @@ import java.util.Set;
 public class Car {
 
     private static final double SPEED_THRESHOLD = 4;
-    DecimalFormat df = new DecimalFormat("#.##");
+    private DecimalFormat df = new DecimalFormat("#.##");
 
-    double enginePower;
-    double wheelbase;        // wheelbase in m
-    double b;                // in m, distance from CG to front axle
-    double c;                // in m, distance from CG to rear axle
-    double h;                // in m, height of CM from ground
-    double mass;            // in kg
-    double inertia;        // in kg.m
-    double length, width;
-    double wheellength, wheelwidth;
-    boolean sliding;
+    private double enginePower;
+    private double wheelbase;        // wheelbase in m
+    private double b;                // in m, distance from CG to front axle
+    private double c;                // in m, distance from CG to rear axle
+    private double h;                // in m, height of CM from ground
+    private double mass;             // in kg
+    private double inertia;          // in kg.m
+    private double length, width;
+    private double wheellength, wheelwidth;
+    private boolean sliding;
 
-    Vector position;        // position of car centre in world coordinates
-    Vector velocity_wc;        // velocity vector of car in world coordinates
+    private Vector position;         // position of car centre in world coordinates
+    private Vector velocity_wc;      // velocity vector of car in world coordinates
 
-    double angle;                // angle of car body orientation (in rads)
-    double angularvelocity;
+    private double angle;            // angle of car body orientation (in rads)
+    private double angularvelocity;
 
-    Inputs inputs;
-    Wheel wheels;
+    private Inputs inputs;
+    private Wheel wheels;
 
-    Vector velocity;
-    Vector acceleration_wc;
-    double rot_angle;
-    double sideslip;
-    double slipanglefront;
-    double slipanglerear;
-    Vector force;
-    Vector resistance;
-    Vector acceleration;
-    double torque;
-    double angular_acceleration;
-    double sn, cs;
-    double yawspeed;
-    double weight;
-    Vector ftraction;
-    Vector flatf, flatr;
-    Vector fdrive;
+    private Vector velocity;
+    private Vector acceleration_wc;
+    private double rot_angle;
+    private double sideslip;
+    private double slipanglefront;
+    private double slipanglerear;
+    private Vector force;
+    private Vector resistance;
+    private Vector acceleration;
+    private double torque;
+    private double angular_acceleration;
+    private double sn, cs;
+    private double yawspeed;
+    private double weight;
+    private Vector ftraction;
+    private Vector flatf, flatr;
+    private Vector fdrive;
 
 
     public Car() {
@@ -220,5 +220,69 @@ public class Car {
         angularvelocity = 0;
         angular_acceleration = 0;
 
+    }
+
+    public void setEnginePower(double enginePower) {
+        this.enginePower = enginePower;
+    }
+
+    public void setMass(double mass) {
+        this.mass = mass;
+    }
+
+    public void setInertia(double inertia) {
+        this.inertia = inertia;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getWheellength() {
+        return wheellength;
+    }
+
+    public double getWheelwidth() {
+        return wheelwidth;
+    }
+
+    public boolean isSliding() {
+        return sliding;
+    }
+
+    public Vector getPosition() {
+        return position;
+    }
+
+    public Vector getVelocity_wc() {
+        return velocity_wc;
+    }
+
+    public double getAngle() {
+        return angle;
+    }
+
+    public Vector getAcceleration_wc() {
+        return acceleration_wc;
+    }
+
+    public double getThrottle() {
+        return this.inputs.getThrottle();
+    }
+
+    public double getBrake() {
+        return this.inputs.getBrake();
+    }
+
+    public double getSteeringAngle() {
+        return this.inputs.getSteeringAngle();
     }
 }

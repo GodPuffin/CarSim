@@ -41,13 +41,13 @@ public class SimController {
         scaleSlider.valueProperty().addListener((observable, oldValue, newValue) -> graphicsHandler.setScaleFactor(newValue.doubleValue()));
 
         //Set up engine slider
-        engineSlider.valueProperty().addListener((observable, oldValue, newValue) -> car.enginePower = (double) newValue);
+        engineSlider.valueProperty().addListener((observable, oldValue, newValue) -> car.setEnginePower((double) newValue));
 
         //Set up weight slider
         weightSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            car.mass = (double) newValue;
-            car.inertia = (double) newValue;
-            car.weight =  0.5 * 9.8 * (double) newValue;
+            car.setMass((double) newValue);
+            car.setInertia((double) newValue);
+            car.setWeight(0.5 * 9.8 * (double) newValue);
 
         });
 
@@ -79,12 +79,12 @@ public class SimController {
         graphicsHandler.update(car, surface);
 
         // Update graphs
-        xAccelGraph.update(car.acceleration_wc.x, deltaTime);
-        yAccelGraph.update(-car.acceleration_wc.y, deltaTime);
-        xVelocGraph.update(car.velocity_wc.x, deltaTime);
-        yVelocGraph.update(-car.velocity_wc.y, deltaTime);
-        spdGraph.update(car.velocity_wc.magnitude(), deltaTime);
-        throttleGraph.update(car.inputs.throttle, deltaTime);
+        xAccelGraph.update(car.getAcceleration_wc().x, deltaTime);
+        yAccelGraph.update(-car.getAcceleration_wc().y, deltaTime);
+        xVelocGraph.update(car.getVelocity_wc().x, deltaTime);
+        yVelocGraph.update(-car.getVelocity_wc().y, deltaTime);
+        spdGraph.update(car.getVelocity_wc().magnitude(), deltaTime);
+        throttleGraph.update(car.getThrottle(), deltaTime);
     }
 
     // Event handlers
