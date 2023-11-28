@@ -28,7 +28,6 @@ public class Car {
     private double angularvelocity;
 
     private Inputs inputs;
-    private Wheel wheels;
 
     private Vector velocity;
     private Vector acceleration_wc;
@@ -70,7 +69,6 @@ public class Car {
         this.angularvelocity = 0;
 
         inputs = new Inputs();
-        wheels = new Wheel();
 
         velocity = new Vector();
         acceleration_wc = new Vector();

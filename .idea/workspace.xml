@@ -7,7 +7,7 @@
     <list default="true" id="c92963a1-2c26-4c59-8d27-dd8761509578" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Inputs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Inputs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Wheel.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
