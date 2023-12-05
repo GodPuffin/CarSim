@@ -5,20 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c92963a1-2c26-4c59-8d27-dd8761509578" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/project/carsim/VectorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Car.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Grapher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Grapher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/GraphicsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/GraphicsHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Inputs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Inputs.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/SimController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Surface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Surface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/carsim/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/carsim/Vector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,23 +37,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -125,6 +114,9 @@
       <workItem from="1701090393128" duration="2190000" />
       <workItem from="1701096661257" duration="6809000" />
       <workItem from="1701130177689" duration="1183000" />
+      <workItem from="1701188538062" duration="594000" />
+      <workItem from="1701200745584" duration="2147000" />
+      <workItem from="1701788052944" duration="2128000" />
     </task>
     <servers />
   </component>

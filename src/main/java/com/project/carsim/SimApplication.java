@@ -64,6 +64,7 @@ public class SimApplication extends Application {
 
         stage.setTitle("CarSim");
         stage.setResizable(false);
+        stage.setFullScreenExitHint("Arrow Keys to move the Car \n Esc to exit full screen");
         stage.setFullScreen(true);
         stage.setScene(scene);
         stage.show();

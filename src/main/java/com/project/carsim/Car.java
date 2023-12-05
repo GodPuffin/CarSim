@@ -7,47 +7,44 @@ import java.util.Set;
 
 /**
  * Car class
+ *
  * @author Philip
  */
 public class Car {
 
-    private static final double SPEED_THRESHOLD = 4;
+    private static final double SPEED_THRESHOLD = 3;
     private final DecimalFormat df = new DecimalFormat("#.##");
-    private double enginePower;
     private final double wheelbase;        // wheelbase in m
     private final double b;                // in m, distance from CG to front axle
     private final double c;                // in m, distance from CG to rear axle
-    private double mass;             // in kg
-    private double inertia;          // in kg.m
     private final double length, width;
     private final double wheellength, wheelwidth;
+    private final Inputs inputs;
+    private final Vector velocity;
+    private final Vector force;
+    private final Vector resistance;
+    private final Vector acceleration;
+    private final Vector ftraction;
+    private final Vector flatf;
+    private final Vector flatr;
+    private double enginePower;
+    private double mass;             // in kg
+    private double inertia;          // in kg.m
     private boolean sliding;
-
     private Vector position;         // position of car centre in world coordinates
     private Vector velocity_wc;      // velocity vector of car in world coordinates
-
     private double angle;            // angle of car body orientation (in rads)
     private double angularvelocity;
-
-    private final Inputs inputs;
-
-    private final Vector velocity;
     private Vector acceleration_wc;
     private double rot_angle;
     private double sideslip;
     private double slipanglefront;
     private double slipanglerear;
-    private final Vector force;
-    private final Vector resistance;
-    private final Vector acceleration;
     private double torque;
     private double angular_acceleration;
     private double sn, cs;
     private double yawspeed;
     private double weight;
-    private final Vector ftraction;
-    private final Vector flatf;
-    private final Vector flatr;
 
     /**
      * Constructor for Car class
@@ -85,9 +82,10 @@ public class Car {
 
     /**
      * Updates the car's physics
-     * @param dt time step
+     *
+     * @param dt         time step
      * @param activeKeys set of active keys
-     * @param surface surface type
+     * @param surface    surface type
      */
     public void update(double dt, Set<KeyCode> activeKeys, Surface surface) {
 
@@ -114,6 +112,7 @@ public class Car {
             slipanglefront = 0;
             slipanglerear = 0;
             sliding = false;
+            velocity.y = 0;
         } else {
             // Existing calculations for slip angles
             yawspeed = this.wheelbase * 0.5 * this.angularvelocity;
@@ -164,8 +163,7 @@ public class Car {
 
 
         // torque on body from lateral forces
-        torque = speed > SPEED_THRESHOLD ? this.b * flatf.y - this.c * flatr.y : velocity.magnitude() * inputs.getSteeringAngle() * 1000;
-
+        torque = this.b * flatf.y - this.c * flatr.y;
 // Acceleration
 
         // Newton F = m.a, therefore a = F/m
@@ -199,8 +197,10 @@ public class Car {
 
         // Low speed fix
         if (speed < SPEED_THRESHOLD) {
-            this.angularvelocity *= 0.9;
-            this.velocity_wc.multiply(0.99);
+            if (inputs.getThrottle() < 0.1) {
+                this.angularvelocity *= 0.9;
+                this.velocity_wc = this.velocity_wc.multiply(0.9);
+            }
         }
 
         inputs.update(activeKeys);
@@ -228,6 +228,7 @@ public class Car {
 
     /**
      * Sets the car's engine power
+     *
      * @param enginePower engine power
      */
     public void setEnginePower(double enginePower) {
@@ -236,6 +237,7 @@ public class Car {
 
     /**
      * Sets the car's mass
+     *
      * @param mass mass
      */
     public void setMass(double mass) {
@@ -244,6 +246,7 @@ public class Car {
 
     /**
      * Sets the car's inertia
+     *
      * @param inertia inertia
      */
     public void setInertia(double inertia) {
@@ -252,6 +255,7 @@ public class Car {
 
     /**
      * Sets the car's weight
+     *
      * @param weight weight
      */
     public void setWeight(double weight) {
@@ -260,6 +264,7 @@ public class Car {
 
     /**
      * Gets the car's length
+     *
      * @return car length
      */
     public double getLength() {
@@ -268,6 +273,7 @@ public class Car {
 
     /**
      * Gets the car's width
+     *
      * @return car width
      */
     public double getWidth() {
@@ -276,6 +282,7 @@ public class Car {
 
     /**
      * Gets the car's wheel length
+     *
      * @return wheel length
      */
     public double getWheellength() {
@@ -284,6 +291,7 @@ public class Car {
 
     /**
      * Gets the car's wheel width
+     *
      * @return wheel width
      */
     public double getWheelwidth() {
@@ -292,6 +300,7 @@ public class Car {
 
     /**
      * Returns whether the car is sliding
+     *
      * @return whether the car is sliding
      */
     public boolean isSliding() {
@@ -300,6 +309,7 @@ public class Car {
 
     /**
      * Gets the car's position
+     *
      * @return car position
      */
     public Vector getPosition() {
@@ -308,6 +318,7 @@ public class Car {
 
     /**
      * Gets the car's velocity in world coordinates
+     *
      * @return car velocity in world coordinates
      */
     public Vector getVelocity_wc() {
@@ -316,6 +327,7 @@ public class Car {
 
     /**
      * Gets the car's angle
+     *
      * @return car angle
      */
     public double getAngle() {
@@ -324,6 +336,7 @@ public class Car {
 
     /**
      * Gets the car's acceleration in world coordinates
+     *
      * @return car acceleration in world coordinates
      */
     public Vector getAcceleration_wc() {
@@ -332,6 +345,7 @@ public class Car {
 
     /**
      * Gets the car's throttle
+     *
      * @return car throttle
      */
     public double getThrottle() {
@@ -340,6 +354,7 @@ public class Car {
 
     /**
      * Gets the car's brake
+     *
      * @return car brake
      */
     public double getBrake() {
@@ -348,6 +363,7 @@ public class Car {
 
     /**
      * Gets the car's steering angle
+     *
      * @return car steering angle
      */
     public double getSteeringAngle() {
